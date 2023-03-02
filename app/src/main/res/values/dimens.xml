@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paddings -->
+    <dimen name="header_padding">16dp</dimen>
+    <dimen name="content_padding">16dp</dimen>
+    <dimen name="icon_padding">10dp</dimen>
+    <dimen name="header_icon_padding">28dp</dimen>
+    <dimen name="content_margin">16dp</dimen>
+    <dimen name="menu_layout_width">60dp</dimen>
+
+    <!-- Text -->
+    <dimen name="header_text_size">22sp</dimen>
+    <dimen name="text_size">16dp</dimen>
+    <dimen name="content_caption_size">22sp</dimen>
+
+    <!-- Button Settings -->
+    <dimen name="button_corner_radius">16dp</dimen>
+
+    <!-- Icons -->
+    <dimen name="share_icon_width">16dp</dimen>
+    <dimen name="ua_icon_width">8dp</dimen>
+    <dimen name="icon_width">20dp</dimen>
+    <dimen name="icon_height">18dp</dimen>
+</resources>
