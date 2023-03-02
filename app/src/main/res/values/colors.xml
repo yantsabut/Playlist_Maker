@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Background -->
+    <color name="background_blue">#3772E7</color>
+    <color name="background_white">#F5F5F5</color>
+
+    <!-- Text -->
+    <color name="text_color">#1A1B22</color>
+
+    <!-- Icon -->
+    <color name="icon_color">#1A1B22</color>
+    <color name="icon_default_color">#AEAFB4</color>
+
 </resources>
