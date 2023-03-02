@@ -9,7 +9,7 @@
     android:padding="@dimen/header_padding">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settings_back_btn"
+        android:id="@+id/settings_back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/setting"
