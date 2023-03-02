@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,22 +15,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonSearch = findViewById<LinearLayout>(R.id.search_button) as Button
-        val imageClickListener: View.OnClickListener = object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                Toast.makeText(this@MainActivity, "Нажали кнопку Поиск!", Toast.LENGTH_SHORT).show()
+        val buttonSearch = findViewById<Button>(R.id.search_button)
+        val buttonLibrary = findViewById<Button>(R.id.library_button)
+        val buttonSetting = findViewById<Button>(R.id.setting_button)
 
-            }
+        buttonSearch.setOnClickListener {
+            val displayIntent = Intent(this, SearchActivity::class.java)
+            startActivity(displayIntent)
         }
-        buttonSearch.setOnClickListener (imageClickListener)
 
-        val buttonLibrary = findViewById<ImageView>(R.id.library_button) as Button
         buttonLibrary.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Нажали кнопку Медиатека!", Toast.LENGTH_SHORT).show()
+            val displayIntent = Intent(this, LibraryActivity::class.java)
+            startActivity(displayIntent)
         }
-        val buttonSetting = findViewById<ImageView>(R.id.setting_button) as Button
+
         buttonSetting.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Нажали кнопку Настройки!", Toast.LENGTH_SHORT).show()
+            val displayIntent = Intent(this, SettingActivity::class.java)
+            startActivity(displayIntent)
         }
     }
 }
