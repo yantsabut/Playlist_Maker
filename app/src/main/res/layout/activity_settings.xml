@@ -47,7 +47,8 @@
 
         <ImageView
             style="@style/ImageStyle"
-            android:src="@drawable/share" />
+            android:src="@drawable/share"
+            app:tint="@color/icon_default_color"/>
 
     </FrameLayout>
 
@@ -64,7 +65,9 @@
 
         <ImageView
             style="@style/ImageStyle"
-            android:src="@drawable/support" />
+            android:src="@drawable/support"
+            app:tint="@color/icon_default_color"
+            />
 
     </FrameLayout>
 
@@ -81,7 +84,8 @@
 
         <ImageView
             style="@style/ImageStyle"
-            android:src="@drawable/arrow_forward" />
+            android:src="@drawable/arrow_forward"
+            app:tint="@color/icon_default_color"/>
 
     </FrameLayout>
 
