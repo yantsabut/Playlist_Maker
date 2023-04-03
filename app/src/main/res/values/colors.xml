@@ -23,7 +23,7 @@
 
     <!-- Text -->
     <color name="text_color">#1A1B22</color>
-
+    <color name="gray">#AEAFB4</color>
     <!-- Icon -->
     <color name="icon_color">#1A1B22</color>
     <color name="icon_default_color">#AEAFB4</color>

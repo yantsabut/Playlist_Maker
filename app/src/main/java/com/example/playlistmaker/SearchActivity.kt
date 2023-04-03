@@ -6,10 +6,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Adapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.SearchActivity.Companion.TEXT_SEARCH
 
 class SearchActivity : AppCompatActivity() {
     companion object {
@@ -20,6 +24,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var inputEditText: EditText
     private lateinit var back: TextView
     private lateinit var clearButton: ImageView
+    private val audio = ArrayList<Track>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +42,11 @@ class SearchActivity : AppCompatActivity() {
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
-        val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val trackAdapter = TrackAdapter(trackList)
+        recyclerView.adapter = trackAdapter
+
+        val simpleTextWatcher = object : TextWatcher { override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
@@ -52,6 +61,7 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(TEXT_SEARCH, inputEditText.text.toString())
@@ -72,3 +82,5 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 }
+
+
