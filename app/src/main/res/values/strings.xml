@@ -16,7 +16,9 @@
     <string name="mail_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="mail_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="my_email">yantsabut777@yandex.ru</string>
-    <string name="download">Загрузка</string>
-
+    <string name="reload">Обновить</string>
+    <string name="no_data_found">Ничего не нашлось</string>
+    <string name="connect_err">Проблемы со связью</string>
+    <string name="connect_descr">Загрузка не удалась. Проверьте подключение к интернету</string>
 
 </resources>
