@@ -9,9 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.SearchActivity.Companion.TEXT_SEARCH
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,29 +52,28 @@ class SearchActivity : AppCompatActivity() {
             iTunesSearch()
         }
 
-        inputEditText = findViewById<EditText>(R.id.search_form)
+        inputEditText = findViewById<EditText>(R.id.search_edit_text)
         if (savedInstanceState != null) {
-            inputEditText.setText(savedInstanceState.getString(TEXT_SEARCH, ""))
+            inputEditText.setText(savedInstanceState.getString(TEXT_SEARCH,""))
         }
 
-        val btnBack = findViewById<View>(R.id.search_back)
+        val btnBack = findViewById<View>(R.id.search_back_btn)
 
         btnBack.setOnClickListener {
             finish()
         }
 
-        val clearButton = findViewById<ImageView>(R.id.clear)
+        val clearButton = findViewById<ImageView>(R.id.removeBtn)
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
-            val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // empty
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -84,7 +81,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // empty
+
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
@@ -100,7 +97,6 @@ class SearchActivity : AppCompatActivity() {
             false
         }
     }
-
     private fun clearButtonVisibility(s: CharSequence?): Int {
         if (s.isNullOrEmpty()) {
             trackList.clear()
@@ -112,7 +108,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun viewSearchResult(status: TrackSearchStatus) {
+    private fun viewSearchResult(status : TrackSearchStatus) {
         when (status) {
             TrackSearchStatus.Success -> {
                 statusLayout.visibility = View.GONE
@@ -132,18 +128,17 @@ class SearchActivity : AppCompatActivity() {
                 statusImage.setImageResource(R.drawable.connect_error)
                 statusAddText.visibility = View.VISIBLE
                 btnReload.visibility = View.VISIBLE
-                statusCaption.setText(R.string.connect_err)
+                statusCaption.setText(R.string.connect_error)
             }
         }
     }
 
-    private fun iTunesSearch() {
-        if (inputEditText.text.isNotEmpty()) {
+    private fun iTunesSearch(){
+        if (inputEditText.text.isNotEmpty()){
             iTunesService.search(inputEditText.text.toString()).enqueue(object :
                 Callback<TrackResponce> {
-                override fun onResponse(
-                    call: Call<TrackResponce>,
-                    response: Response<TrackResponce>
+                override fun onResponse(call: Call<TrackResponce>,
+                                        response: Response<TrackResponce>
                 ) {
                     if (response.code() == 200) {
                         trackList.clear()
@@ -174,7 +169,6 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(TEXT_SEARCH, inputEditText.text.toString())
     }
 }
-
 
 
 
