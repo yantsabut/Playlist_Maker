@@ -21,4 +21,6 @@
     <dimen name="header_padding">16dp</dimen>
     <dimen name="search_height">36dp</dimen>
     <dimen name="search_padding">40dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
 </resources>

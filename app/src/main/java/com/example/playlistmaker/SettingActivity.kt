@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,9 +19,9 @@ class SettingActivity : AppCompatActivity() {
         val buttonShare = findViewById<TextView>(R.id.share_app)
         val buttonSupport = findViewById<TextView>(R.id.write_in_support)
         val buttonAgreement = findViewById<TextView>(R.id.user_agreement)
-        val buttonSettingsBack = findViewById<View>(R.id.settings_back)
+        val buttonSettingsBack = findViewById<ImageView>(R.id.backArrowImageView)
 
-        buttonThemes.setOnClickListener {
+                buttonThemes.setOnClickListener {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_NO -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

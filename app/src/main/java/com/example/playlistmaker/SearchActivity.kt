@@ -31,6 +31,8 @@ class SearchActivity : AppCompatActivity() {
     private val adapter = TrackAdapter()
     private var tempText = ""
 
+    private lateinit var clearButton: ImageView
+    private lateinit var backArrowImageView: ImageView
     private lateinit var inputEditText: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var statusLayout: LinearLayout
@@ -42,32 +44,31 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        statusLayout = findViewById<LinearLayout>(R.id.status)
-        statusImage = findViewById<ImageView>(R.id.status_img)
-        statusCaption = findViewById<TextView>(R.id.status_caption)
-        statusAddText = findViewById<TextView>(R.id.status_add_text)
-        btnReload = findViewById<Button>(R.id.reload_btn)
-
+        statusLayout = findViewById(R.id.status)
+        statusImage = findViewById(R.id.status_img)
+        statusCaption = findViewById(R.id.status_caption)
+        statusAddText = findViewById(R.id.status_add_text)
+        btnReload = findViewById(R.id.reload_btn)
+        backArrowImageView = findViewById(R.id.backArrowImageView)
+        clearButton = findViewById(R.id.clearIcon)
         btnReload.setOnClickListener {
             iTunesSearch()
         }
 
-        inputEditText = findViewById<EditText>(R.id.search_edit_text)
+        inputEditText = findViewById(R.id.inputEditText)
         if (savedInstanceState != null) {
-            inputEditText.setText(savedInstanceState.getString(TEXT_SEARCH,""))
+            inputEditText.setText(savedInstanceState.getString(TEXT_SEARCH, ""))
+
         }
 
-        val btnBack = findViewById<View>(R.id.search_back_btn)
-
-        btnBack.setOnClickListener {
+        backArrowImageView.setOnClickListener {
             finish()
         }
 
-        val clearButton = findViewById<ImageView>(R.id.removeBtn)
-
         clearButton.setOnClickListener {
             inputEditText.setText("")
-            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
 
@@ -85,7 +86,7 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         adapter.trackList = trackList
         recyclerView.adapter = adapter
 
@@ -97,6 +98,7 @@ class SearchActivity : AppCompatActivity() {
             false
         }
     }
+
     private fun clearButtonVisibility(s: CharSequence?): Int {
         if (s.isNullOrEmpty()) {
             trackList.clear()
@@ -108,7 +110,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun viewSearchResult(status : TrackSearchStatus) {
+    private fun viewSearchResult(status: TrackSearchStatus) {
         when (status) {
             TrackSearchStatus.Success -> {
                 statusLayout.visibility = View.GONE
@@ -133,12 +135,13 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun iTunesSearch(){
-        if (inputEditText.text.isNotEmpty()){
+    private fun iTunesSearch() {
+        if (inputEditText.text.isNotEmpty()) {
             iTunesService.search(inputEditText.text.toString()).enqueue(object :
                 Callback<TrackResponce> {
-                override fun onResponse(call: Call<TrackResponce>,
-                                        response: Response<TrackResponce>
+                override fun onResponse(
+                    call: Call<TrackResponce>,
+                    response: Response<TrackResponce>
                 ) {
                     if (response.code() == 200) {
                         trackList.clear()
