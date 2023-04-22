@@ -8,10 +8,24 @@
     tools:context=".SearchActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/search_back_btn"
-        style="@style/ToolbarStyle"
-        app:title="@string/search"
-        app:navigationIcon="@drawable/arrow_back"/>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/backArrowImageView"
+            style="@style/ImageViewToolbarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/settingsTextView"
+            style="@style/TextViewToolbarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +38,7 @@
         style="@style/search_form">
 
         <ImageView
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +49,7 @@
              />
 
         <EditText
-            android:id="@+id/search_edit_text"
+            android:id="@+id/inputEditText"
             style="@style/search_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,7 +70,7 @@
             android:textFontWeight="400" />
 
         <ImageView
-            android:id="@+id/removeBtn"
+            android:id="@+id/clearIcon"
             style="@style/search_form"
             android:layout_width="12dp"
             android:layout_height="12dp"

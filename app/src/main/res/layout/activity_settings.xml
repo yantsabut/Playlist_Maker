@@ -8,20 +8,25 @@
     android:orientation="vertical"
     tools:ignore="UseSwitchCompatOrMaterialXml">
 
-    <TextView
-        android:id="@+id/settings_back"
+    <androidx.appcompat.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height">
+
+    <ImageView
+        android:id="@+id/backArrowImageView"
+        style="@style/ImageViewToolbarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:drawablePadding="28dp"
-        android:drawableTint="?attr/colorOnSecondary"
-        android:fontFamily="@font/ys_display_medium"
-        android:text="@string/setting"
-        android:textColor="?attr/colorOnSecondary"
-        android:textFontWeight="500"
-        android:textSize="@dimen/text_normal"
-        app:drawableStartCompat="@drawable/arrow_back" />
+        app:srcCompat="@drawable/arrow_back"/>
+
+    <TextView
+        android:id="@+id/settingsTextView"
+        style="@style/TextViewToolbarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <Switch
         android:id="@+id/theme_switcher"
