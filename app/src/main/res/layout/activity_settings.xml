@@ -28,14 +28,15 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <Switch
-        android:id="@+id/theme_switcher"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        android:theme="@style/TextStyle"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginHorizontal="@dimen/padding_large"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/search_padding"
         android:height="@dimen/height_for_settings"
         android:text="@string/black_theme" />
 
