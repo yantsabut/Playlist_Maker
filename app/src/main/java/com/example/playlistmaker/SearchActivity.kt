@@ -9,9 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.SearchActivity.Companion.TEXT_SEARCH
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +31,8 @@ class SearchActivity : AppCompatActivity() {
     private val adapter = TrackAdapter()
     private var tempText = ""
 
+    private lateinit var clearButton: ImageView
+    private lateinit var backArrowImageView: ImageView
     private lateinit var inputEditText: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var statusLayout: LinearLayout
@@ -44,28 +44,26 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        statusLayout = findViewById<LinearLayout>(R.id.status)
-        statusImage = findViewById<ImageView>(R.id.status_img)
-        statusCaption = findViewById<TextView>(R.id.status_caption)
-        statusAddText = findViewById<TextView>(R.id.status_add_text)
-        btnReload = findViewById<Button>(R.id.reload_btn)
-
+        statusLayout = findViewById(R.id.status)
+        statusImage = findViewById(R.id.status_img)
+        statusCaption = findViewById(R.id.status_caption)
+        statusAddText = findViewById(R.id.status_add_text)
+        btnReload = findViewById(R.id.reload_btn)
+        backArrowImageView = findViewById(R.id.backArrowImageView)
+        clearButton = findViewById(R.id.clearIcon)
         btnReload.setOnClickListener {
             iTunesSearch()
         }
 
-        inputEditText = findViewById<EditText>(R.id.search_form)
+        inputEditText = findViewById(R.id.inputEditText)
         if (savedInstanceState != null) {
             inputEditText.setText(savedInstanceState.getString(TEXT_SEARCH, ""))
+
         }
 
-        val btnBack = findViewById<View>(R.id.search_back)
-
-        btnBack.setOnClickListener {
+        backArrowImageView.setOnClickListener {
             finish()
         }
-
-        val clearButton = findViewById<ImageView>(R.id.clear)
 
         clearButton.setOnClickListener {
             inputEditText.setText("")
@@ -76,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // empty
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -84,11 +82,11 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // empty
+
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         adapter.trackList = trackList
         recyclerView.adapter = adapter
 
@@ -132,7 +130,7 @@ class SearchActivity : AppCompatActivity() {
                 statusImage.setImageResource(R.drawable.connect_error)
                 statusAddText.visibility = View.VISIBLE
                 btnReload.visibility = View.VISIBLE
-                statusCaption.setText(R.string.connect_err)
+                statusCaption.setText(R.string.connect_error)
             }
         }
     }
@@ -174,7 +172,6 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(TEXT_SEARCH, inputEditText.text.toString())
     }
 }
-
 
 
 
