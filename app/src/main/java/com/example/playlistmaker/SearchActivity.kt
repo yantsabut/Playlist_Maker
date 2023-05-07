@@ -29,8 +29,7 @@ class SearchActivity : AppCompatActivity() {
     private val iTunesService = retrofit.create(iTunesAPI::class.java)
     private val trackList = ArrayList<Track>()
     private val adapter = TrackAdapter()
-    private var tempText = ""
-
+    private var searchHistoryList = ArrayList<Track>()
     private lateinit var clearButton: ImageView
     private lateinit var backArrowImageView: ImageView
     private lateinit var inputEditText: EditText
@@ -53,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
         statusAddText = findViewById(R.id.status_add_text)
         backArrowImageView = findViewById(R.id.backArrowImageView)
         clearButton = findViewById(R.id.clearIcon)
-        historySearchText = findViewById<TextView>(R.id.history_search_text)
+        historySearchText = findViewById(R.id.history_search_text)
         btnClearHistory = findViewById(R.id.clear_history_btn)
         recyclerView = findViewById(R.id.recyclerView)
         btnReload = findViewById(R.id.reload_btn)
@@ -76,14 +75,16 @@ class SearchActivity : AppCompatActivity() {
             val imm: InputMethodManager =
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
+            searchHistoryList = SearchHistory.fill()
             viewResult(
-                if (SearchHistory.historyTrackList.size > 0)
+                if (searchHistoryList.size > 0)
                     TrackSearchStatus.ShowHistory
                 else TrackSearchStatus.Empty
             )
         }
 
         btnClearHistory.setOnClickListener {
+            searchHistoryList.clear()
             SearchHistory.clear()
             viewResult(TrackSearchStatus.Empty)
         }
@@ -101,10 +102,10 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
-        SearchHistory.fill()
+        searchHistoryList = SearchHistory.fill()
         recyclerView.adapter = adapter
         viewResult(
-            if (SearchHistory.historyTrackList.size > 0)
+            if (searchHistoryList.size > 0)
                 TrackSearchStatus.ShowHistory
             else TrackSearchStatus.Empty
         )
@@ -119,16 +120,16 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
-        if (s.isNullOrEmpty()) {
+        return if (s.isNullOrEmpty()) {
             trackList.clear()
             viewResult(TrackSearchStatus.Success)
-            return View.GONE
+            View.GONE
         } else {
-            return View.VISIBLE
+            View.VISIBLE
         }
     }
 
-    private fun viewResult(status: TrackSearchStatus) {
+        private fun viewResult(status: TrackSearchStatus) {
         when (status) {
             TrackSearchStatus.Empty -> {
                 statusLayout.visibility = View.GONE
@@ -169,7 +170,7 @@ class SearchActivity : AppCompatActivity() {
                 recyclerView.visibility = View.VISIBLE
                 historySearchText.visibility = View.VISIBLE
                 btnClearHistory.visibility = View.VISIBLE
-                adapter.trackList = SearchHistory.historyTrackList
+                adapter.trackList = searchHistoryList
                 adapter.notifyDataSetChanged()
             }
         }

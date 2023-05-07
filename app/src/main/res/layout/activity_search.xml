@@ -101,7 +101,8 @@
         android:layout_marginTop="23dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/activity_track"
-        tools:itemCount="20"
+        tools:itemCount="10"
+        android:layout_weight="1"
         android:visibility="gone"/>
 
     <LinearLayout
