@@ -17,7 +17,7 @@
         style="@style/ImageViewToolbarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/arrow_back"/>
+        app:srcCompat="@drawable/arrow_back" />
 
     <TextView
         android:id="@+id/settingsTextView"
@@ -30,7 +30,7 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/themeSwitcher"
-        android:theme="@style/TextStyle"
+        android:theme="@style/SCBSwitch"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
