@@ -38,6 +38,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         backArrow.setOnClickListener {
             finish()
+        }
             val value: String? = intent.getStringExtra(KEY_FOR_PLAYLIST)
             val track: Track? = Gson().fromJson(value, Track::class.java)
 
@@ -69,4 +70,3 @@ class AudioPlayerActivity : AppCompatActivity() {
             }
         }
     }
-}
