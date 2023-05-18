@@ -11,4 +11,23 @@
     <string name="share">Поделиться приложением</string>
     <string name="support">Написать в поддежку</string>
     <string name="agreement">Пользовательское соглашение</string>
+    <string name="developer">https://practicum.yandex.ru/android-developer/</string>
+    <string name="offer">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="mail_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="mail_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="my_email">yantsabut777@yandex.ru</string>
+    <string name="reload">Обновить</string>
+    <string name="no_data_found">Ничего не нашлось</string>
+    <string name="connect_error">Проблемы со связью</string>
+    <string name="connect_error_description">Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="bad_connection">Проблемы со связью\n\n Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="server_error">На сервере произошла ошибка</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="search_text">Вы искали</string>
+    <string name="single_name">Альбом</string>
+    <string name="genre">Жанр</string>
+    <string name="country_by_artist">Страна</string>
+    <string name="time_by_track">Длительность</string>
+    <string name="year_by_track">Год</string>
+    <string name="_0_30">0:30</string>
 </resources>

@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Paddings -->
+
+    <dimen name="big_size">50sp</dimen>
+    <dimen name="text_normal">22sp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="font_size_13sp">13sp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="text_s_small">11sp</dimen>
+    <dimen name="text_midle">19sp</dimen>
+    <dimen name="small_medium_font_size">14sp</dimen>
+    <dimen name="icon_size">45dp</dimen>
+    <dimen name="icon_start">13dp</dimen>
+    <dimen name="margin_large">14dp</dimen>
+    <dimen name="margin_normal">44dp</dimen>
+    <dimen name="margin_s_small">1dp</dimen>
+    <dimen name="margin_x_small">5dp</dimen>
+    <dimen name="margin_s_normal">20dp</dimen>
+    <dimen name="margin_l_normal">24dp</dimen>
+    <dimen name="height_for_settings">61dp</dimen>
+    <dimen name="button_radius">54dp</dimen>
     <dimen name="header_padding">16dp</dimen>
-    <dimen name="content_padding">16dp</dimen>
-    <dimen name="icon_padding">10dp</dimen>
-    <dimen name="header_icon_padding">28dp</dimen>
-    <dimen name="content_margin">16dp</dimen>
-    <dimen name="menu_layout_width">60dp</dimen>
+    <dimen name="search_height">36dp</dimen>
+    <dimen name="search_padding">40dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
 
-    <!-- Text -->
-    <dimen name="header_text_size">22sp</dimen>
-    <dimen name="text_size">16dp</dimen>
-    <dimen name="content_caption_size">22sp</dimen>
-
-    <!-- Button Settings -->
-    <dimen name="button_corner_radius">16dp</dimen>
-
-    <!-- Icons -->
-    <dimen name="share_icon_width">16dp</dimen>
-    <dimen name="ua_icon_width">8dp</dimen>
-    <dimen name="icon_width">20dp</dimen>
-    <dimen name="icon_height">18dp</dimen>
+    <!--track_view-->
+    <dimen name="padding_vertical_8dp">8dp</dimen>
+    <dimen name="min_height">61dp</dimen>
+    <dimen name="image_view_size">45dp</dimen>
+    <dimen name="image_view_margin_left">13dp</dimen>
+    <dimen name="padding_vertical_4dp">4dp</dimen>
+    <dimen name="padding_horizontal_8dp">8dp</dimen>
+    <dimen name="layout_margin_left_5dp">5dp</dimen>
+    <dimen name="layout_margin_right_20dp">20dp</dimen>
+    <dimen name="image_corner_radius">2dp</dimen>
 </resources>
