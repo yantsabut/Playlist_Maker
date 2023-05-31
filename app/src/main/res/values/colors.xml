@@ -37,4 +37,7 @@
     <color name="disable_thumb">#f1f1f1</color>
     <color name="thumb_foreground">#42221f1f</color>
 
+    <!-- Progress_bar -->
+    <color name="progress_bar">#3772E7</color>
+
 </resources>

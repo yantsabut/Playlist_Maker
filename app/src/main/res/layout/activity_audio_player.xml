@@ -199,11 +199,9 @@
         app:srcCompat="@drawable/play_button"
         android:background="@null"
         app:layout_constraintTop_toBottomOf="@id/artistName"
-        app:layout_constraintBottom_toTopOf="@id/durationLabel"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintEnd_toStartOf="@id/endGuideline"
         android:layout_marginTop="38dp"
-        android:layout_marginBottom="12dp"
         />
 
     <ImageButton
@@ -213,8 +211,8 @@
         android:layout_marginStart="8dp"
         app:srcCompat="@drawable/favourites_button"
         android:background="@null"
-        app:layout_constraintTop_toBottomOf="@id/artistName"
-        app:layout_constraintBottom_toTopOf="@id/durationLabel"
+        app:layout_constraintTop_toTopOf="@id/playButton"
+        app:layout_constraintBottom_toBottomOf="@id/playButton"
         app:layout_constraintStart_toStartOf="@id/startGuideline"/>
 
     <ImageButton
@@ -224,8 +222,8 @@
         android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/like_button"
         android:background="@null"
-        app:layout_constraintTop_toBottomOf="@id/artistName"
-        app:layout_constraintBottom_toTopOf="@id/durationLabel"
+        app:layout_constraintTop_toTopOf="@id/playButton"
+        app:layout_constraintBottom_toBottomOf="@id/playButton"
         app:layout_constraintEnd_toStartOf="@id/endGuideline"/>
 
     <TextView
@@ -240,7 +238,7 @@
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/playButton"
         app:layout_constraintVertical_bias="0.0"
-        android:text="@string/_0_30"/>
+        android:text="@string/player_start_position"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

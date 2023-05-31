@@ -29,5 +29,6 @@
     <string name="country_by_artist">Страна</string>
     <string name="time_by_track">Длительность</string>
     <string name="year_by_track">Год</string>
-    <string name="_0_30">0:30</string>
+    <string name="player_start_position">00:00</string>
+
 </resources>
