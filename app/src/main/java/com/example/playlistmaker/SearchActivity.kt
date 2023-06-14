@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -32,7 +34,13 @@ class SearchActivity : AppCompatActivity() {
 
     companion object {
         const val EDIT_TEXT_VALUE = "EDIT_TEXT_VALUE"
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
+
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { search() }
 
     val tracks = ArrayList<Track>()
 
@@ -46,11 +54,15 @@ class SearchActivity : AppCompatActivity() {
     private val trackService = retrofit.create(ItunesApi::class.java)
 
     private val adapter = TrackAdapter {
-        clickToTrackList(it)
+        if (clickDebounce()) {
+            clickToTrackList(it)
+        }
     }
 
     private val historyAdapter = TrackAdapter {
-        clickToHistoryTrackList(it)
+        if (clickDebounce()) {
+            clickToHistoryTrackList(it)
+        }
     }
 
     private lateinit var inputEditText: EditText
@@ -64,6 +76,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var historyWidget: LinearLayout
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var clearHistoryButton: Button
+    private lateinit var progressBar: ProgressBar
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +108,7 @@ class SearchActivity : AppCompatActivity() {
         badConnectionTextView = findViewById(R.id.bad_connection)
         historyWidget = findViewById(R.id.history_widget)
         clearHistoryButton = findViewById(R.id.clear_history_button)
+        progressBar = findViewById(R.id.progressBar)
 
         clearHistoryButton.setOnClickListener {
             searchHistory!!.clearHistoryList()
@@ -128,11 +142,14 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                 clearButton.visibility = clearButtonVisibility(s)
                 textFromSearchWidget = inputEditText.text.toString()
 
                 // On Focus Actions
-                historyWidget.visibility = if (inputEditText.hasFocus() && s?.isEmpty() == true && searchHistory!!.historyList.isNotEmpty()) View.VISIBLE else View.GONE
+                historyWidget.visibility =
+                    if (inputEditText.hasFocus() && s?.isEmpty() == true && searchHistory!!.historyList.isNotEmpty()) View.VISIBLE else View.GONE
+                searchDebounce()
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -210,33 +227,57 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        trackService.search(text=inputEditText.text.toString())
-            .enqueue(object: Callback<TrackResponse> {
-                override fun onResponse(
-                    call: Call<TrackResponse>,
-                    response: Response<TrackResponse>
-                ) {
-                    when(response.code()) {
-                        200 -> {
-                            if (response.body()?.tracks?.isNotEmpty() == true) {
-                                tracks.clear()
-                                tracks.addAll(response.body()?.tracks!!)
-                                adapter.notifyDataSetChanged()
-                                showPlaceholder(null)
-                            } else {
-                                showPlaceholder(true)
+        if (inputEditText.text.toString().isNotEmpty()) {
+
+            progressBar.visibility = View.VISIBLE
+
+            trackService.search(text=inputEditText.text.toString())
+                .enqueue(object: Callback<TrackResponse> {
+                    override fun onResponse(
+                        call: Call<TrackResponse>,
+                        response: Response<TrackResponse>
+                    ) {
+
+                        progressBar.visibility = View.GONE
+
+                        when(response.code()) {
+                            200 -> {
+                                if (response.body()?.tracks?.isNotEmpty() == true) {
+                                    tracks.clear()
+                                    tracks.addAll(response.body()?.tracks!!)
+                                    adapter.notifyDataSetChanged()
+                                    showPlaceholder(null)
+                                } else {
+                                    showPlaceholder(true)
+                                }
                             }
-                        }
-                        else -> {
-                            showPlaceholder(false, getString(R.string.server_error))
+                            else -> {
+                                showPlaceholder(false, getString(R.string.server_error))
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                    showPlaceholder(false, getString(R.string.bad_connection))
-                }
+                    override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
 
-            })
+                        progressBar.visibility = View.GONE
+
+                        showPlaceholder(false, getString(R.string.bad_connection))
+                    }
+
+                })
+        }
+    }
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun clickDebounce() : Boolean {
+      val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({isClickAllowed = true}, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
     }
 }

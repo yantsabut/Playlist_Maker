@@ -27,6 +27,9 @@
     <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
 
+    <!--progress_bar-->
+    <dimen name="progress_bar_size">44dp</dimen>
+
     <!--track_view-->
     <dimen name="padding_vertical_8dp">8dp</dimen>
     <dimen name="min_height">61dp</dimen>
