@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -7,7 +7,7 @@ const val SHARED_PREFERENCES = "shared_preferences"
 const val KEY_FOR_APP_THEME = "key_for_app_theme"
 
 
-class App: Application() {
+class App : Application() {
 
     var darkTheme = false
 

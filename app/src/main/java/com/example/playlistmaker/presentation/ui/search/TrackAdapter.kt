@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.playlistmaker.R
+import com.example.playlistmaker.domain.Track
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TrackAdapter(val clickListener: TrackClickListener): RecyclerView.Adapter<TrackAdapter.TrackHolder>() {
+class TrackAdapter(val clickListener: TrackClickListener) :
+    RecyclerView.Adapter<TrackAdapter.TrackHolder>() {
 
     var tracks = ArrayList<Track>()
 
@@ -18,7 +21,7 @@ class TrackAdapter(val clickListener: TrackClickListener): RecyclerView.Adapter<
         fun onTrackClick(track: Track)
     }
 
-    class TrackHolder(parent: ViewGroup): RecyclerView.ViewHolder(
+    class TrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.track_view, parent, false)
     ) {
         var artwork = itemView.findViewById<ImageView>(R.id.artwork)
@@ -28,9 +31,11 @@ class TrackAdapter(val clickListener: TrackClickListener): RecyclerView.Adapter<
 
         fun bind(track: Track) {
 
-            val formattedTime = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
+            val formattedTime =
+                SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
 
-            Glide.with(itemView).load(track.artworkUrl).placeholder(R.drawable.placeholder).into(artwork)
+            Glide.with(itemView).load(track.artworkUrl).placeholder(R.drawable.placeholder)
+                .into(artwork)
             artistName.text = track.artistName
             trackName.text = track.trackName
             trackTime.text = formattedTime
@@ -41,7 +46,7 @@ class TrackAdapter(val clickListener: TrackClickListener): RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: TrackHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener {clickListener.onTrackClick(tracks[position])}
+        holder.itemView.setOnClickListener { clickListener.onTrackClick(tracks[position]) }
     }
 
     override fun getItemCount() = tracks.size
