@@ -17,8 +17,8 @@ const val STATE_PAUSED = 3
 
 class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPlayerInteractor: AudioPlayerInteractor): ViewModel() {
 
-    private val _playerTrackForRender = MutableLiveData<PlayerTrack>()
-    val playerTrackForRender: LiveData<PlayerTrack> = _playerTrackForRender
+    private val _playerTrack = MutableLiveData<PlayerTrack>()
+    val playerTrackForRender: LiveData<PlayerTrack> = _playerTrack
 
     init {
         preparePlayer()
@@ -28,7 +28,7 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
 
     private val mainThreadHandler = Handler(Looper.getMainLooper())
 
-    private val _isCompleted = MutableLiveData<Boolean>(false)
+    private val _isCompleted = MutableLiveData(false)
     val isCompleted: LiveData<Boolean> = _isCompleted
 
     private val _playerState = MutableLiveData(STATE_DEFAULT)
@@ -53,7 +53,7 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
 
 
 
-        _playerTrackForRender.postValue(playerTrackTo)
+        _playerTrack.postValue(playerTrackTo)
     }
 
     fun play() {

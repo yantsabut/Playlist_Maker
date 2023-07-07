@@ -4,7 +4,10 @@ import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerRepository
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 
-class AudioPlayerInteractorImpl(private val playerTrack: PlayerTrack, private val audioPlayerRepository: AudioPlayerRepository):
+class AudioPlayerInteractorImpl(
+    private val playerTrack: PlayerTrack,
+    private val audioPlayerRepository: AudioPlayerRepository
+) :
     AudioPlayerInteractor {
 
     override fun play() {
@@ -23,7 +26,9 @@ class AudioPlayerInteractorImpl(private val playerTrack: PlayerTrack, private va
         return audioPlayerRepository.currentPos()
     }
 
-    override fun prepare(callbackPrep: () -> Unit, callbackComp: () -> Unit) {
+    override fun prepare(
+        callbackPrep: () -> Unit,
+        callbackComp: () -> Unit) {
         audioPlayerRepository.prepare(
             previewUrl = playerTrack.previewUrl,
             callbackOnPrepared = {
