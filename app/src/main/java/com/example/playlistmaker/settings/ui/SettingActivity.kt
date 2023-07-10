@@ -32,10 +32,11 @@ class SettingActivity : AppCompatActivity() {
         viewModel =
             ViewModelProvider(this, SettingsViewModelFactory(this))[SettingsViewModel::class.java]
 
-        shareAppFrameLayout = findViewById(R.id.share_app)
-        supportFrameLayout = findViewById(R.id.write_in_support)
-        agreementFrameLayout = findViewById(R.id.user_agreement)
         backArrowImageView = findViewById(R.id.backArrowImageView)
+        shareAppFrameLayout = findViewById(R.id.shareAppFrameLayout)
+        supportFrameLayout = findViewById(R.id.supportFrameLayout)
+        agreementFrameLayout = findViewById(R.id.agreementFrameLayout)
+        themeSwitcher = findViewById(R.id.themeSwitcher)
 
         themeSwitcher.isChecked = viewModel.getThemeState()
 

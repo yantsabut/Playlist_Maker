@@ -27,6 +27,11 @@
     <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
 
+
+    <!--SettingsActivity-->
+    <dimen name="margin_start_for_textView">11dp</dimen>
+
+
     <!--progress_bar-->
     <dimen name="progress_bar_size">44dp</dimen>
 

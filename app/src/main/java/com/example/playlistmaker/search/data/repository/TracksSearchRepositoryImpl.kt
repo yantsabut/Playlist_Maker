@@ -5,21 +5,21 @@ import com.example.playlistmaker.search.data.dto.TrackSearchResponse
 import com.example.playlistmaker.search.data.network.NetworkClient
 import com.example.playlistmaker.search.domain.interfaces.TracksSearchRepository
 import com.example.playlistmaker.search.domain.models.Track
-import com.example.playlistmaker.util.Resource
+import com.example.playlistmaker.util.Response
 
 
 class TracksSearchSearchRepositoryImpl(private val networkClient: NetworkClient):
     TracksSearchRepository {
 
-    override fun searchTracks(expression: String): Resource<List<Track>> {
+    override fun searchTracks(expression: String): Response<List<Track>> {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
 
         return when (response.resultCode) {
             -1 -> {
-                Resource.Error(isFailed = false)
+                Response.Error(isFailed = false)
             }
             200 -> {
-                Resource.Success((response as TrackSearchResponse).tracks.map {
+                Response.Success((response as TrackSearchResponse).tracks.map {
                     Track(
                         trackId = it.trackId,
                         trackName = it.trackName,
@@ -34,7 +34,7 @@ class TracksSearchSearchRepositoryImpl(private val networkClient: NetworkClient)
                     )})
             }
             else -> {
-                Resource.Error(isFailed = true)
+                Response.Error(isFailed = true)
             }
         }
     }

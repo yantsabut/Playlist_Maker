@@ -62,6 +62,12 @@ class SearchingViewModel(
         _historyList.postValue(hList)
     }
 
+    fun transferTrackToTop(track: Track) {
+        val index = trackHistoryInteractor.transferToTop(track)
+        if (index != 0) {
+            _historyList.postValue(getHistoryList())
+        }
+    }
     fun onDestroy() {
         handler.removeCallbacks(searchRunnable)
     }

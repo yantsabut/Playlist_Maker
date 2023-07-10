@@ -15,7 +15,10 @@ const val STATE_PREPARED = 1
 const val STATE_PLAYING = 2
 const val STATE_PAUSED = 3
 
-class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPlayerInteractor: AudioPlayerInteractor): ViewModel() {
+class PlayerViewModel(
+    private val playerTrack: PlayerTrack,
+    private val audioPlayerInteractor: AudioPlayerInteractor
+) : ViewModel() {
 
     private val _playerTrack = MutableLiveData<PlayerTrack>()
     val playerTrackForRender: LiveData<PlayerTrack> = _playerTrack
@@ -25,19 +28,17 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
         assignValToPlayerTrackForRender()
     }
 
-
     private val mainThreadHandler = Handler(Looper.getMainLooper())
-
     private val _isCompleted = MutableLiveData(false)
+
     val isCompleted: LiveData<Boolean> = _isCompleted
-
     private val _playerState = MutableLiveData(STATE_DEFAULT)
+
     val playerState: LiveData<Int> = _playerState
+    private val _formattedTime = MutableLiveData("00:00")
 
-    private val _formattedTime =  MutableLiveData("00:00")
     val formattedTime: LiveData<String> = _formattedTime
-
-    private val cycleRunnable = object: Runnable {
+    private val cycleRunnable = object : Runnable {
         override fun run() {
             _formattedTime.postValue(getTimeFormat(audioPlayerInteractor.getCurrentPos().toLong()))
             mainThreadHandler.postDelayed(this, UPDATE_TIME_INFO_MS)
@@ -47,11 +48,9 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
     private fun assignValToPlayerTrackForRender() {
         val playerTrackTo = playerTrack.copy(
             artworkUrl = playerTrack.artworkUrl.replaceAfterLast('/', "512x512bb.jpg"),
-            releaseDate = playerTrack.releaseDate.split("-", limit=2)[0],
+            releaseDate = playerTrack.releaseDate.split("-", limit = 2)[0],
             trackTime = getTimeFormat(playerTrack.trackTime.toLong())
         )
-
-
 
         _playerTrack.postValue(playerTrackTo)
     }
@@ -75,7 +74,7 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
     }
 
     fun playbackControl() {
-        when(_playerState.value) {
+        when (_playerState.value) {
             STATE_PLAYING -> pause()
             STATE_PAUSED, STATE_PREPARED -> play()
         }
@@ -94,7 +93,8 @@ class PlayerViewModel(private val playerTrack: PlayerTrack, private val audioPla
         )
     }
 
-    fun getTimeFormat(value: Long): String = SimpleDateFormat("mm:ss", Locale.getDefault()).format(value)
+    fun getTimeFormat(value: Long): String =
+        SimpleDateFormat("mm:ss", Locale.getDefault()).format(value)
 
     companion object {
         private const val UPDATE_TIME_INFO_MS = 300L

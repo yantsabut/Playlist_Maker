@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
         buttonSearch.setOnClickListener(searchButtonClickListener)
 
-
         buttonLibrary.setOnClickListener {
             val intent = Intent(this@MainActivity, LibraryActivity::class.java)
             startActivity(intent)

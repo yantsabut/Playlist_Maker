@@ -7,7 +7,6 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.settings.domain.interfaces.ThemeStateInteractor
 import com.example.playlistmaker.sharing.domain.interfaces.StringStorageInteractor
 
-
 class SettingsViewModel(
     val app: Application,
     private val themeStateInteractor: ThemeStateInteractor,
@@ -18,7 +17,7 @@ class SettingsViewModel(
         return themeStateInteractor.getThemeState()
     }
 
-    fun  saveAndChangeThemeState(state: Boolean) {
+    fun saveAndChangeThemeState(state: Boolean) {
         (app as App).switchTheme(state)
         themeStateInteractor.saveThemeState(state)
     }
@@ -43,3 +42,4 @@ class SettingsViewModel(
         return arrayOf("yantsabut777@yandex.ru")
     }
 }
+

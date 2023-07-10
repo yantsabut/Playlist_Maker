@@ -67,7 +67,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var clearHistoryButton: Button
     private lateinit var progressBar: ProgressBar
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -92,6 +92,7 @@ class SearchActivity : AppCompatActivity() {
 
         viewModel.historyList.observe(this) { historyList ->
             historyAdapter.tracks = historyList
+            historyAdapter.notifyDataSetChanged()
         }
 
         inputEditText = findViewById(R.id.inputEditText)
@@ -107,7 +108,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearHistoryButton.setOnClickListener {
             viewModel.clearHistoryList()
-            adapter.notifyDataSetChanged()
+            historyAdapter.notifyDataSetChanged()
             historyWidget.visibility = View.GONE
         }
 
@@ -196,7 +197,6 @@ class SearchActivity : AppCompatActivity() {
 
     private fun clickToTrackList(track: Track) {
         viewModel.addTrackToHistoryList(track)
-        historyAdapter.notifyDataSetChanged()
 
         val intent = Intent(this, AudioPlayerActivity::class.java)
         intent.putExtra(KEY_FOR_PLAYER, track)
@@ -204,11 +204,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun clickToHistoryTrackList(track: Track) {
+        viewModel.transferTrackToTop(track)
+
         val intent = Intent(this, AudioPlayerActivity::class.java)
         intent.putExtra(KEY_FOR_PLAYER, track)
         startActivity(intent)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showPlaceholder(flag: Boolean?, message: String = "") {
         if (flag != null) {
             if (flag == true) {
@@ -238,6 +241,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun render(tracksState: TracksState) {
         when {
 

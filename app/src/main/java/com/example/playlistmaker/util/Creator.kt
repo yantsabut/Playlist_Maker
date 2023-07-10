@@ -29,8 +29,6 @@ import com.example.playlistmaker.sharing.domain.interfaces.StringStorageReposito
 
 object Creator {
 
-
-
     private fun getThemeStateRepository(context: Context): ThemeStateRepository {
         return ThemeStateRepositoryImpl(ThemeStateStorageSharedPrefs(context))
     }
@@ -65,7 +63,6 @@ object Creator {
     }
 
 
-
     private fun getAudioPlayerRepository(): AudioPlayerRepository {
         return AudioPlayerRepositoryImpl()
     }
@@ -73,6 +70,5 @@ object Creator {
     fun provideAudioPlayerInteractor(playerTrack: PlayerTrack): AudioPlayerInteractor {
         return AudioPlayerInteractorImpl(playerTrack, getAudioPlayerRepository())
     }
-
 
 }
