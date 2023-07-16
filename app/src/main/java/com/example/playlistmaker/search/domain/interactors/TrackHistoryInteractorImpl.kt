@@ -49,7 +49,6 @@ class TrackHistoryInteractorImpl(private val historyTrackRepositorySH: HistoryTr
         return index
     }
 
-
     private fun shiftElementToTopOfHistoryList(index: Int) {
         val trackToMove = historyList[index]
         historyList.removeAt(index)

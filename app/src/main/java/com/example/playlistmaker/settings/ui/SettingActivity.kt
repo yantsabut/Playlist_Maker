@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.R
 import com.example.playlistmaker.settings.presentation.SettingsViewModel
-import com.example.playlistmaker.settings.presentation.SettingsViewModelFactory
 import com.google.android.material.switchmaterial.SwitchMaterial
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SettingActivity : AppCompatActivity() {
@@ -22,15 +21,12 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var agreementFrameLayout: FrameLayout
     private lateinit var themeSwitcher: SwitchMaterial
 
-    private lateinit var viewModel: SettingsViewModel
+    private val viewModel by viewModel<SettingsViewModel>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        viewModel =
-            ViewModelProvider(this, SettingsViewModelFactory(this))[SettingsViewModel::class.java]
 
         backArrowImageView = findViewById(R.id.backArrowImageView)
         shareAppFrameLayout = findViewById(R.id.shareAppFrameLayout)
