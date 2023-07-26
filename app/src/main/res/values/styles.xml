@@ -46,7 +46,6 @@
         <item name="android:src">@drawable/connect_error</item>
     </style>
 
-
     <style name="TextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -159,5 +158,5 @@
     <style name="ImageViewTrackItemStyle">
         <item name="android:background">@color/white</item>
     </style>
-    <!--/Styles for playlist_screen-->
+
 </resources>

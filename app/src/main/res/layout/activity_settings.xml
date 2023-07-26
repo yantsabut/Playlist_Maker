@@ -41,6 +41,7 @@
         android:text="@string/black_theme" />
 
     <FrameLayout
+        android:id="@+id/shareAppFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_for_settings"
         android:paddingStart="@dimen/padding_large"
@@ -59,6 +60,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/supportFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_for_settings"
         android:paddingStart="@dimen/padding_large"
@@ -78,6 +80,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/agreementFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_for_settings"
         android:paddingStart="@dimen/padding_large"
