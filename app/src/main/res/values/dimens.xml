@@ -26,7 +26,7 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
-
+    <dimen name="keyboard_visible_threshold">100dp</dimen>
 
     <!--SettingsActivity-->
     <dimen name="margin_start_for_textView">11dp</dimen>

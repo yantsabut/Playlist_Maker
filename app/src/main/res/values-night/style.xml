@@ -108,5 +108,9 @@
     <style name="MedialibraryToolbarStyle">
         <item name="android:background">@color/moderately_black</item>
     </style>
+    <style name="BottomMenuStyle">
+        <item name="itemIconTint">@drawable/bottom_menu_icon_color_night_mode</item>
+        <item name="itemTextColor">@drawable/bottom_menu_icon_color_night_mode</item>
+    </style>
 
 </resources>

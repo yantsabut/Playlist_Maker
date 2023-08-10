@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.KEY_FOR_PLAYER
 import com.example.playlistmaker.R
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.PlayerViewModel
 import com.example.playlistmaker.player.presentation.STATE_PAUSED
 import com.example.playlistmaker.player.presentation.STATE_PLAYING
 import com.example.playlistmaker.search.domain.models.Track
-import com.example.playlistmaker.search.ui.KEY_FOR_PLAYER
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.io.Serializable
@@ -36,7 +36,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     private lateinit var playerTrack: PlayerTrack
 
-    private val viewModel by viewModel<PlayerViewModel> {
+    private val viewModel: PlayerViewModel by viewModel {
         parametersOf(playerTrack)
     }
 

@@ -176,4 +176,9 @@
 
     <!--/Styles for medialibrary_screen-->
 
+    <style name="BottomMenuStyle">
+        <item name="itemIconTint">@drawable/bottom_menu_icon_color_day_mode</item>
+        <item name="itemTextColor">@drawable/bottom_menu_icon_color_day_mode</item>
+    </style>
+
 </resources>
