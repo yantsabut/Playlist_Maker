@@ -20,6 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"/>
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/pale_grey"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         style="@style/BottomMenuStyle"

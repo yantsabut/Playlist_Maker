@@ -68,6 +68,10 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         playerTrack = convertTrackToPlayerTrack(track)
 
+        if (playerTrack.previewUrl == null) {
+            playButton.isEnabled = false
+        }
+
         viewModel.playerTrackForRender.observe(this) { playerTrack ->
             render(playerTrack)
         }
@@ -127,19 +131,14 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     private fun render(track: PlayerTrack) {
-        trackName.text = track.trackName
-        artistName.text = track.artistName
-        duration.text = track.trackTime
 
-        if (!track.collectionName.isNullOrEmpty()) {
-            collectionName.text = track.collectionName
-        } else {
-            collectionName.text = getString(R.string.unknown)
-        }
-
-        year.text = track.releaseDate
-        genre.text = track.primaryGenreName
-        country.text = track.country
+        trackName.text = viewModel.checkEmptinessOrNull(track.trackName)
+        artistName.text = viewModel.checkEmptinessOrNull(track.artistName)
+        duration.text = viewModel.checkEmptinessOrNull(track.trackTime)
+        collectionName.text = viewModel.checkEmptinessOrNull(track.collectionName)
+        year.text = viewModel.checkEmptinessOrNull(track.releaseDate)
+        genre.text = viewModel.checkEmptinessOrNull(track.primaryGenreName)
+        country.text = viewModel.checkEmptinessOrNull(track.country)
 
         Glide.with(this)
             .load(track.artworkUrl)

@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.KEY_FOR_PLAYER
@@ -25,6 +26,8 @@ import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.presentation.SearchingViewModel
 import com.example.playlistmaker.search.ui.models.TracksState
 import com.example.playlistmaker.settings.presentation.SettingsViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,7 +47,6 @@ class SearchFragment: Fragment() {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
-    private val handler = Handler(Looper.getMainLooper())
 
     private var isClickAllowed = true
 
@@ -273,7 +275,11 @@ class SearchFragment: Fragment() {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({isClickAllowed = true}, CLICK_DEBOUNCE_DELAY)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
 
         return current

@@ -6,25 +6,23 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSecondaryVariant"
     android:orientation="vertical"
-    tools:context=".settings.ui.SettingFragment"
-    >
+    tools:context=".settings.ui.SettingFragment">
 
     <androidx.appcompat.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbar_height">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
 
-    <TextView
-        android:id="@+id/settingsTextView"
-        style="@style/TextViewToolbarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/setting"/>
+        <TextView
+            android:id="@+id/settingsTextView"
+            style="@style/TextViewToolbarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/themeSwitcher"
-        android:theme="@style/SCBSwitch"
         style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +30,8 @@
         android:layout_marginHorizontal="@dimen/padding_large"
         android:layout_marginTop="@dimen/search_padding"
         android:height="@dimen/height_for_settings"
-        android:text="@string/black_theme" />
+        android:text="@string/black_theme"
+        android:theme="@style/SCBSwitch" />
 
     <FrameLayout
         android:id="@+id/shareAppFrameLayout"
@@ -49,7 +48,7 @@
         <ImageView
             style="@style/ImageStyle"
             android:src="@drawable/share"
-            app:tint="@color/icon_default_color"/>
+            app:tint="@color/icon_default_color" />
 
     </FrameLayout>
 
@@ -68,8 +67,7 @@
         <ImageView
             style="@style/ImageStyle"
             android:src="@drawable/support"
-            app:tint="@color/icon_default_color"
-            />
+            app:tint="@color/icon_default_color" />
 
     </FrameLayout>
 
@@ -88,7 +86,7 @@
         <ImageView
             style="@style/ImageStyle"
             android:src="@drawable/arrow_forward"
-            app:tint="@color/icon_default_color"/>
+            app:tint="@color/icon_default_color" />
 
     </FrameLayout>
 
