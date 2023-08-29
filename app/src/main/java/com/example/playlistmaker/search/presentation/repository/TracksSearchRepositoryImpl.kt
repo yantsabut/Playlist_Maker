@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.data.repository
+package com.example.playlistmaker.search.presentation.repository
 
 import com.example.playlistmaker.search.data.dto.TrackSearchRequest
 import com.example.playlistmaker.search.data.dto.TrackSearchResponse
@@ -6,12 +6,13 @@ import com.example.playlistmaker.search.data.network.NetworkClient
 import com.example.playlistmaker.search.domain.interfaces.TracksSearchRepository
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.util.Response
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 
 class TracksSearchSearchRepositoryImpl(private val networkClient: NetworkClient): TracksSearchRepository {
 
-    override fun searchTracks(expression: String): kotlinx.coroutines.flow.Flow<Response<List<Track>>> = flow {
+    override fun searchTracks(expression: String): Flow<Response<List<Track>>> = flow {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
 
         when(response.resultCode) {

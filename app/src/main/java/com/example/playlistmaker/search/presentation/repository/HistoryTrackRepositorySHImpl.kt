@@ -1,15 +1,17 @@
-package com.example.playlistmaker.search.data.repository
+package com.example.playlistmaker.search.presentation.repository
 
 import com.example.playlistmaker.search.data.dto.TrackDto
 import com.example.playlistmaker.search.data.storage.TrackSearchHistoryStorage
 import com.example.playlistmaker.search.domain.interfaces.HistoryTrackRepositorySH
 import com.example.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 
 class HistoryTrackRepositorySHImpl(private val trackSearchHistoryStorage: TrackSearchHistoryStorage):
     HistoryTrackRepositorySH {
 
-    override fun getTrackListFromSH(): Array<Track> {
+    override fun getTrackListFromSH(): Flow<Array<Track>> = flow {
         val tracksDto = trackSearchHistoryStorage.getTracksFromStorage()
         val tracks: Array<Track> =  tracksDto.map {
             Track(
@@ -26,7 +28,7 @@ class HistoryTrackRepositorySHImpl(private val trackSearchHistoryStorage: TrackS
             )
         }.toTypedArray()
 
-        return tracks
+        emit(tracks)
     }
 
     override fun saveTrackListToSH(historyList: ArrayList<Track>) {

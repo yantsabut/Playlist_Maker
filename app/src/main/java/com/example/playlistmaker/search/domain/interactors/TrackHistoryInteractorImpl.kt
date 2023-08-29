@@ -1,14 +1,17 @@
 package com.example.playlistmaker.search.domain.interactors
 
+import androidx.lifecycle.LiveData
 import com.example.playlistmaker.search.domain.interfaces.HistoryTrackRepositorySH
 import com.example.playlistmaker.search.domain.interfaces.TrackHistoryInteractor
 import com.example.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.toList
 
 
 class TrackHistoryInteractorImpl(private val historyTrackRepositorySH: HistoryTrackRepositorySH?):
     TrackHistoryInteractor {
 
-    private val historyList: ArrayList<Track> = ArrayList(historyTrackRepositorySH?.getTrackListFromSH()?.toList())
+   private val historyList = ArrayList<Track>()
 
     override fun getHistoryList(): ArrayList<Track> {
         return historyList

@@ -6,8 +6,8 @@ import com.example.playlistmaker.SHARED_PREFERENCES
 import com.example.playlistmaker.search.data.network.ITunesApi
 import com.example.playlistmaker.search.data.network.NetworkClient
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
-import com.example.playlistmaker.search.data.repository.HistoryTrackRepositorySHImpl
-import com.example.playlistmaker.search.data.repository.TracksSearchSearchRepositoryImpl
+import com.example.playlistmaker.search.presentation.repository.HistoryTrackRepositorySHImpl
+import com.example.playlistmaker.search.presentation.repository.TracksSearchSearchRepositoryImpl
 import com.example.playlistmaker.search.data.storage.TrackSearchHistoryStorage
 import com.example.playlistmaker.search.data.storage.TrackSearchHistoryStorageSharedPrefs
 import com.example.playlistmaker.search.domain.interactors.TrackHistoryInteractorImpl
