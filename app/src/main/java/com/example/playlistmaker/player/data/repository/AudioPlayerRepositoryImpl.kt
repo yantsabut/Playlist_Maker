@@ -32,4 +32,7 @@ class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer): AudioPlay
             callbackOnCompletion.invoke()
         }
     }
+    override fun isPlaying(): Boolean {
+        return mediaPlayer.isPlaying
+    }
 }

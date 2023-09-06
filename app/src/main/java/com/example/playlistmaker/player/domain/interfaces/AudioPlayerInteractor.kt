@@ -8,4 +8,5 @@ interface AudioPlayerInteractor {
     fun getCurrentPos(): Int
     fun prepare(callbackPrep: () -> Unit, callbackComp: () -> Unit)
 
+    fun isPlaying(): Boolean
 }

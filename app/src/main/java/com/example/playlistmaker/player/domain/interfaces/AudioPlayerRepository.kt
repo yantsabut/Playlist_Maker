@@ -6,4 +6,6 @@ interface AudioPlayerRepository {
     fun release()
     fun currentPos(): Int
     fun prepare(previewUrl: String, callbackOnPrepared: () -> Unit, callbackOnCompletion: () -> Unit)
+
+    fun isPlaying(): Boolean
 }

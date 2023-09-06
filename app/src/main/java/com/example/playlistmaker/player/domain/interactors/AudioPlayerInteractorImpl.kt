@@ -29,14 +29,19 @@ class AudioPlayerInteractorImpl(
     override fun prepare(
         callbackPrep: () -> Unit,
         callbackComp: () -> Unit) {
-        audioPlayerRepository.prepare(
-            previewUrl = playerTrack.previewUrl,
-            callbackOnPrepared = {
-                callbackPrep.invoke()
-            },
-            callbackOnCompletion = {
-                callbackComp.invoke()
-            }
-        )
+        playerTrack.previewUrl?.let {
+            audioPlayerRepository.prepare(
+                previewUrl = it,
+                callbackOnPrepared = {
+                    callbackPrep.invoke()
+                },
+                callbackOnCompletion = {
+                    callbackComp.invoke()
+                }
+            )
+        }
+    }
+    override fun isPlaying(): Boolean {
+        return audioPlayerRepository.isPlaying()
     }
 }
