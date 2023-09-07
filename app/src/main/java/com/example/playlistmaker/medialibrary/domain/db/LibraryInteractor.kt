@@ -4,6 +4,6 @@ import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import kotlinx.coroutines.flow.Flow
 
 
-interface LibraryDatabaseInteractor {
+interface LibraryInteractor {
     suspend fun getPlayerTracksFromDatabase(): Flow<List<LibraryTrack>>
 }

@@ -39,6 +39,7 @@ import org.koin.dsl.module
         }
         factory<PlayerTrackDbConverter> { PlayerTrackDbConverter() }
 
+
         single<AudioPlayerDatabaseRepository> {
             AudioPlayerDatabaseRepositoryImpl(appDatabase = get(), playerTrackDbConverter = get())
         }
@@ -49,5 +50,4 @@ import org.koin.dsl.module
             AudioPlayerDatabaseInteractorImpl(audioPlayerDatabaseRepository = get(), playerTrackDataConverter = get())
         }
     }
-
 

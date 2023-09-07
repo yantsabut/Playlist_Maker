@@ -4,8 +4,8 @@ import com.example.playlistmaker.medialibrary.data.converters.TrackDbConverter
 import com.example.playlistmaker.medialibrary.data.repository.LibraryDatabaseRepositoryImpl
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackToTrackConverter
-import com.example.playlistmaker.medialibrary.domain.db.LibraryDatabaseInteractor
-import com.example.playlistmaker.medialibrary.domain.db.LibraryDatabaseRepository
+import com.example.playlistmaker.medialibrary.domain.db.LibraryInteractor
+import com.example.playlistmaker.medialibrary.domain.db.LibraryRepository
 import com.example.playlistmaker.medialibrary.domain.impl.LibraryDatabaseInteractorImpl
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryFavouritesViewModel
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryPlaylistsViewModel
@@ -26,13 +26,13 @@ val medialibraryModule = module {
 
         factory<LibraryTrackToTrackConverter> { LibraryTrackToTrackConverter() }
 
-        single<LibraryDatabaseRepository> {
+        single<LibraryRepository> {
             LibraryDatabaseRepositoryImpl(appDatabase = get(), trackDbConverter = get())
         }
 
         factory<LibraryTrackDataConverter> { LibraryTrackDataConverter() }
 
-        single<LibraryDatabaseInteractor> {
+        single<LibraryInteractor> {
             LibraryDatabaseInteractorImpl(libraryDatabaseRepository = get(), libraryTrackDataConverter = get())
         }
 

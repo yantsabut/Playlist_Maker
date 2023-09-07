@@ -4,6 +4,6 @@ import com.example.playlistmaker.medialibrary.data.dto.LibraryTrackDto
 import kotlinx.coroutines.flow.Flow
 
 
-interface LibraryDatabaseRepository {
+interface LibraryRepository {
     suspend fun getPlayerTracksFromDatabase(): Flow<List<LibraryTrackDto>>
 }

@@ -23,6 +23,7 @@ class PlayerViewModel(
     private val playerTrack: PlayerTrack,
     private val audioPlayerInteractor: AudioPlayerInteractor,
     private val audioPlayerDatabaseInteractor: AudioPlayerDatabaseInteractor
+
 ): ViewModel() {
 
     private var isFavourite = false
@@ -128,23 +129,13 @@ class PlayerViewModel(
                 .collect { listOfIds ->
                     val trackIsFavourite = checkTrackId(listOfIds)
 
-                    if (trackIsFavourite) {
-                        assignValueToIsFavourite(true)
-                        _favouriteTrack.postValue(
-                            FavouriteTrackState(
-                                isFavourite = true,
-                                isLoading = false
-                            )
+                    assignValueToIsFavourite(trackIsFavourite)
+                    _favouriteTrack.postValue(
+                        FavouriteTrackState(
+                            isFavourite = trackIsFavourite,
+                            isLoading = false
                         )
-                    } else {
-                        assignValueToIsFavourite(false)
-                        _favouriteTrack.postValue(
-                            FavouriteTrackState(
-                                isFavourite = false,
-                                isLoading = false
-                            )
-                        )
-                    }
+                    )
                 }
         }
     }

@@ -33,7 +33,10 @@ class LibraryTrackAdapter(
 
             val formattedTime = SimpleDateFormat("mm:ss", Locale.getDefault()).format(libraryTrack.trackTime?.toLong())
 
-            Glide.with(itemView).load(libraryTrack.artworkUrl).placeholder(R.drawable.placeholder).into(artwork)
+            Glide.with(itemView)
+                .load(libraryTrack.artworkUrl)
+                .placeholder(R.drawable.placeholder)
+                .into(artwork)
             artistName.text = libraryTrack.artistName
             trackName.text = libraryTrack.trackName
             trackTime.text = formattedTime

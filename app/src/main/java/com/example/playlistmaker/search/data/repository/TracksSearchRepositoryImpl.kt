@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.presentation.repository
+package com.example.playlistmaker.search.data.repository
 
 import com.example.playlistmaker.search.data.dto.TrackSearchRequest
 import com.example.playlistmaker.search.data.dto.TrackSearchResponse

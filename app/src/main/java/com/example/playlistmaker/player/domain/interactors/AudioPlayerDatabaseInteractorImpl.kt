@@ -11,12 +11,24 @@ class AudioPlayerDatabaseInteractorImpl(
     private val playerTrackDataConverter: PlayerTrackDataConverter
 ) : AudioPlayerDatabaseInteractor {
 
-    override suspend fun addPlayerTrackToDatabase(playerTrack: PlayerTrack, insertionTimeStamp: Long) {
-        audioPlayerDatabaseRepository.addPlayerTrackToDatabase(playerTrackDataConverter.map(playerTrack, insertionTimeStamp))
+    override suspend fun addPlayerTrackToDatabase(
+        playerTrack: PlayerTrack,
+        insertionTimeStamp: Long
+    ) {
+        audioPlayerDatabaseRepository.addPlayerTrackToDatabase(
+            playerTrackDataConverter.map(
+                playerTrack,
+                insertionTimeStamp
+            )
+        )
     }
 
     override suspend fun deletePlayerTrackFromDatabase(playerTrack: PlayerTrack) {
-        audioPlayerDatabaseRepository.deletePlayerTrackFromDatabase(playerTrackDataConverter.map(playerTrack))
+        audioPlayerDatabaseRepository.deletePlayerTrackFromDatabase(
+            playerTrackDataConverter.map(
+                playerTrack
+            )
+        )
     }
 
     override suspend fun getTracksIdFromDatabase(): Flow<List<Int>> {
