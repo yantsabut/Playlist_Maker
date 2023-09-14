@@ -2,13 +2,13 @@ package com.example.playlistmaker.di
 
 import android.media.MediaPlayer
 import com.example.playlistmaker.player.data.converters.PlayerTrackDbConverter
-import com.example.playlistmaker.player.data.repository.AudioPlayerDatabaseRepositoryImpl
+import com.example.playlistmaker.favourite.data.FavouriteRepositoryImpl
 import com.example.playlistmaker.player.data.repository.AudioPlayerRepositoryImpl
 import com.example.playlistmaker.player.domain.converters.PlayerTrackDataConverter
-import com.example.playlistmaker.player.domain.interactors.AudioPlayerDatabaseInteractorImpl
+import com.example.playlistmaker.favourite.domain.FavouriteInteractorImpl
 import com.example.playlistmaker.player.domain.interactors.AudioPlayerInteractorImpl
-import com.example.playlistmaker.player.domain.interfaces.AudioPlayerDatabaseInteractor
-import com.example.playlistmaker.player.domain.interfaces.AudioPlayerDatabaseRepository
+import com.example.playlistmaker.favourite.domain.FavouriteInteractor
+import com.example.playlistmaker.favourite.data.FavouriteRepository
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerRepository
 import com.example.playlistmaker.player.domain.models.PlayerTrack
@@ -40,14 +40,14 @@ import org.koin.dsl.module
         factory<PlayerTrackDbConverter> { PlayerTrackDbConverter() }
 
 
-        single<AudioPlayerDatabaseRepository> {
-            AudioPlayerDatabaseRepositoryImpl(appDatabase = get(), playerTrackDbConverter = get())
+        single<FavouriteRepository> {
+            FavouriteRepositoryImpl(appDatabase = get(), playerTrackDbConverter = get())
         }
 
         factory<PlayerTrackDataConverter> { PlayerTrackDataConverter() }
 
-        single<AudioPlayerDatabaseInteractor> {
-            AudioPlayerDatabaseInteractorImpl(audioPlayerDatabaseRepository = get(), playerTrackDataConverter = get())
+        single<FavouriteInteractor> {
+            FavouriteInteractorImpl(audioPlayerDatabaseRepository = get(), playerTrackDataConverter = get())
         }
     }
 

@@ -4,9 +4,9 @@ import com.example.playlistmaker.medialibrary.data.converters.TrackDbConverter
 import com.example.playlistmaker.medialibrary.data.repository.LibraryDatabaseRepositoryImpl
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackToTrackConverter
-import com.example.playlistmaker.medialibrary.domain.db.LibraryInteractor
-import com.example.playlistmaker.medialibrary.domain.db.LibraryRepository
-import com.example.playlistmaker.medialibrary.domain.impl.LibraryDatabaseInteractorImpl
+import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
+import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
+import com.example.playlistmaker.medialibrary.domain.impl.LibraryInteractorImpl
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryFavouritesViewModel
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryPlaylistsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,7 +15,7 @@ import org.koin.dsl.module
 val medialibraryModule = module {
 
     viewModel {
-        MedialibraryFavouritesViewModel(libraryDatabaseInteractor = get(), libraryTrackToTrackConverter = get())
+        MedialibraryFavouritesViewModel(libraryInteractor = get(), libraryTrackToTrackConverter = get())
     }
 
     viewModel {
@@ -26,14 +26,14 @@ val medialibraryModule = module {
 
         factory<LibraryTrackToTrackConverter> { LibraryTrackToTrackConverter() }
 
-        single<LibraryRepository> {
+        single<FavouriteLibraryRepository> {
             LibraryDatabaseRepositoryImpl(appDatabase = get(), trackDbConverter = get())
         }
 
         factory<LibraryTrackDataConverter> { LibraryTrackDataConverter() }
 
-        single<LibraryInteractor> {
-            LibraryDatabaseInteractorImpl(libraryDatabaseRepository = get(), libraryTrackDataConverter = get())
+        single<FavouriteLibraryInteractor> {
+            LibraryInteractorImpl(libraryDatabaseRepository = get(), libraryTrackDataConverter = get())
         }
 
     }

@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackToTrackConverter
-import com.example.playlistmaker.medialibrary.domain.db.LibraryInteractor
+import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
 import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import com.example.playlistmaker.medialibrary.presentation.state_clases.LibraryTracksState
 import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.launch
 
 class MedialibraryFavouritesViewModel (
-    private val libraryDatabaseInteractor: LibraryInteractor,
+    private val libraryInteractor: FavouriteLibraryInteractor,
     private val libraryTrackToTrackConverter: LibraryTrackToTrackConverter
 ) : ViewModel() {
 
-    private val _databaseTracksState = MutableLiveData<LibraryTracksState>()
-    val databaseTracksState: LiveData<LibraryTracksState> = _databaseTracksState
+    private val _TracksState = MutableLiveData<LibraryTracksState>()
+    val databaseTracksState: LiveData<LibraryTracksState> = _TracksState
 
     fun convertLibraryTrackToTrack(libraryTrack: LibraryTrack): Track {
         return libraryTrackToTrackConverter.map(libraryTrack)
@@ -25,7 +25,7 @@ class MedialibraryFavouritesViewModel (
 
     fun fillData() {
 
-        _databaseTracksState.postValue(
+        _TracksState.postValue(
             LibraryTracksState(
                 libraryTracks = emptyList(),
                 isLoading = true
@@ -33,8 +33,8 @@ class MedialibraryFavouritesViewModel (
         )
 
         viewModelScope.launch {
-            libraryDatabaseInteractor
-                .getPlayerTracksFromDatabase()
+            libraryInteractor
+                .getPlayerTracksFromFavourite()
                 .collect { libraryTracks ->
                     processResult(libraryTracks)
                 }
@@ -45,14 +45,14 @@ class MedialibraryFavouritesViewModel (
     private fun processResult(libraryTracks: List<LibraryTrack>) {
 
         if (libraryTracks.isEmpty()) {
-            _databaseTracksState.postValue(
+            _TracksState.postValue(
                 LibraryTracksState(
                     libraryTracks = emptyList(),
                     isLoading = false
                 )
             )
         } else {
-            _databaseTracksState.postValue(
+            _TracksState.postValue(
                 LibraryTracksState(
                     libraryTracks = libraryTracks,
                     isLoading = false

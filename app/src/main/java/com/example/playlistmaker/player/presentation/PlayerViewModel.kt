@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playlistmaker.player.domain.interfaces.AudioPlayerDatabaseInteractor
+import com.example.playlistmaker.favourite.domain.FavouriteInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.state_clases.FavouriteTrackState
@@ -22,7 +22,7 @@ const val STATE_PAUSED = 3
 class PlayerViewModel(
     private val playerTrack: PlayerTrack,
     private val audioPlayerInteractor: AudioPlayerInteractor,
-    private val audioPlayerDatabaseInteractor: AudioPlayerDatabaseInteractor
+    private val audioPlayerDatabaseInteractor: FavouriteInteractor
 
 ): ViewModel() {
 
@@ -125,7 +125,7 @@ class PlayerViewModel(
 
         viewModelScope.launch {
             audioPlayerDatabaseInteractor
-                .getTracksIdFromDatabase()
+                .getTracksIdFromFavourite()
                 .collect { listOfIds ->
                     val trackIsFavourite = checkTrackId(listOfIds)
 
@@ -141,12 +141,12 @@ class PlayerViewModel(
     }
 
     suspend fun deletePlayerTrackFromFavourites() {
-        audioPlayerDatabaseInteractor.deletePlayerTrackFromDatabase(playerTrack)
+        audioPlayerDatabaseInteractor.deletePlayerTrackFromFavourite(playerTrack)
     }
 
     suspend fun addPlayerTrackToFavourites() {
         val insertionTimestamp = System.currentTimeMillis()
-        audioPlayerDatabaseInteractor.addPlayerTrackToDatabase(playerTrack, insertionTimestamp)
+        audioPlayerDatabaseInteractor.addPlayerTrackToFavourite(playerTrack, insertionTimestamp)
     }
 
     private fun checkTrackId(listOfIds: List<Int>): Boolean {

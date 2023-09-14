@@ -2,20 +2,20 @@ package com.example.playlistmaker.medialibrary.domain.impl
 
 import com.example.playlistmaker.medialibrary.data.dto.LibraryTrackDto
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
-import com.example.playlistmaker.medialibrary.domain.db.LibraryInteractor
-import com.example.playlistmaker.medialibrary.domain.db.LibraryRepository
+import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
+import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
 import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-class LibraryDatabaseInteractorImpl(
-    private val libraryDatabaseRepository: LibraryRepository,
+class LibraryInteractorImpl(
+    private val libraryDatabaseRepository: FavouriteLibraryRepository,
     private val libraryTrackDataConverter: LibraryTrackDataConverter
-) : LibraryInteractor {
+) : FavouriteLibraryInteractor {
 
-    override suspend fun getPlayerTracksFromDatabase(): Flow<List<LibraryTrack>> {
-        return libraryDatabaseRepository.getPlayerTracksFromDatabase().map { list ->
+    override suspend fun getPlayerTracksFromFavourite(): Flow<List<LibraryTrack>> {
+        return libraryDatabaseRepository.getPlayerTracksFromFavourite().map { list ->
             convertListLibraryTrackDtoToListLibraryTrack(list)
         }
     }
