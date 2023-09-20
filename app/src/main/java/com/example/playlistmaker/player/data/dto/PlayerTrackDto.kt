@@ -1,6 +1,6 @@
-package com.example.playlistmaker.player.domain.models
+package com.example.playlistmaker.player.data.dto
 
-data class PlayerTrack(
+data class PlayerTrackDto (
     val trackId: Int,
     val trackName: String?,
     val artistName: String?,
@@ -12,4 +12,4 @@ data class PlayerTrack(
     val country: String?,
     val previewUrl: String?,
     val insertionTimeStamp: Long? = null
-)
+        )

@@ -1,7 +1,6 @@
 package com.example.playlistmaker.player.domain.interfaces
 
 interface AudioPlayerInteractor {
-
     fun play()
     fun pause()
     fun release()

@@ -1,14 +1,13 @@
 package com.example.playlistmaker.player.presentation
 
-import android.os.Handler
-import android.os.Looper
-import android.text.format.DateFormat.getTimeFormat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.favourite.domain.FavouriteInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.models.PlayerTrack
+import com.example.playlistmaker.player.presentation.state_clases.FavouriteTrackState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,13 +21,20 @@ const val STATE_PAUSED = 3
 
 class PlayerViewModel(
     private val playerTrack: PlayerTrack,
-    private val audioPlayerInteractor: AudioPlayerInteractor
-) : ViewModel() {
+    private val audioPlayerInteractor: AudioPlayerInteractor,
+    private val audioPlayerDatabaseInteractor: FavouriteInteractor
+
+): ViewModel() {
+
+    private var isFavourite = false
 
     private var timerJob: Job? = null
 
     private val _playerTrack = MutableLiveData<PlayerTrack>()
     val playerTrackForRender: LiveData<PlayerTrack> = _playerTrack
+
+    private val _favouriteTrack = MutableLiveData<FavouriteTrackState>()
+    val favouriteTrack: LiveData<FavouriteTrackState> = _favouriteTrack
 
     init {
         preparePlayer()
@@ -107,6 +113,51 @@ class PlayerViewModel(
     fun checkEmptinessOrNull(text: String?): String {
         return if (!text.isNullOrEmpty()) text else "n/a"
     }
+
+    fun checkTrackIsFavourite() {
+
+        _favouriteTrack.postValue(
+            FavouriteTrackState(
+                isFavourite = null,
+                isLoading = true
+            )
+        )
+
+        viewModelScope.launch {
+            audioPlayerDatabaseInteractor
+                .getTracksIdFromFavourite()
+                .collect { listOfIds ->
+                    val trackIsFavourite = checkTrackId(listOfIds)
+
+                    assignValueToIsFavourite(trackIsFavourite)
+                    _favouriteTrack.postValue(
+                        FavouriteTrackState(
+                            isFavourite = trackIsFavourite,
+                            isLoading = false
+                        )
+                    )
+                }
+        }
+    }
+
+    suspend fun deletePlayerTrackFromFavourites() {
+        audioPlayerDatabaseInteractor.deletePlayerTrackFromFavourite(playerTrack)
+    }
+
+    suspend fun addPlayerTrackToFavourites() {
+        val insertionTimestamp = System.currentTimeMillis()
+        audioPlayerDatabaseInteractor.addPlayerTrackToFavourite(playerTrack, insertionTimestamp)
+    }
+
+    private fun checkTrackId(listOfIds: List<Int>): Boolean {
+        return listOfIds.contains(playerTrack.trackId)
+    }
+
+    fun assignValueToIsFavourite(value: Boolean) {
+        isFavourite = value
+    }
+
+    fun checkValueFromIsFavourite(): Boolean = isFavourite
 
     companion object {
         private const val UPDATE_TIME_INFO_MS = 300L

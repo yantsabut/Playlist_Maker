@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search.ui
+package com.example.playlistmaker.medialibrary.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,21 +7,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.playlistmaker.R
-import com.example.playlistmaker.search.domain.models.Track
+import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TrackAdapter(val clickListener: TrackClickListener) :
-    RecyclerView.Adapter<TrackAdapter.TrackHolder>() {
+class LibraryTrackAdapter(
+    val clickListener: TrackClickListener): RecyclerView.Adapter<LibraryTrackAdapter.TrackHolder>() {
 
-    var tracks = ArrayList<Track>()
+    var tracks = ArrayList<LibraryTrack>()
 
     fun interface TrackClickListener {
-        fun onTrackClick(track: Track)
+        fun onTrackClick(libraryTrack: LibraryTrack)
     }
 
-    class TrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    class TrackHolder(parent: ViewGroup): RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.track_view, parent, false)
     ) {
         private var artwork = itemView.findViewById<ImageView>(R.id.artwork)
@@ -29,15 +29,16 @@ class TrackAdapter(val clickListener: TrackClickListener) :
         private var trackName = itemView.findViewById<TextView>(R.id.trackName)
         private var trackTime = itemView.findViewById<TextView>(R.id.trackTime)
 
-        fun bind(track: Track) {
+        fun bind(libraryTrack: LibraryTrack) {
 
-            val formattedTime =
-                SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime?.toLong())
+            val formattedTime = SimpleDateFormat("mm:ss", Locale.getDefault()).format(libraryTrack.trackTime?.toLong())
 
-            Glide.with(itemView).load(track.artworkUrl).placeholder(R.drawable.placeholder)
+            Glide.with(itemView)
+                .load(libraryTrack.artworkUrl)
+                .placeholder(R.drawable.placeholder)
                 .into(artwork)
-            artistName.text = track.artistName
-            trackName.text = track.trackName
+            artistName.text = libraryTrack.artistName
+            trackName.text = libraryTrack.trackName
             trackTime.text = formattedTime
         }
     }
@@ -46,7 +47,7 @@ class TrackAdapter(val clickListener: TrackClickListener) :
 
     override fun onBindViewHolder(holder: TrackHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { clickListener.onTrackClick(tracks[position]) }
+        holder.itemView.setOnClickListener {clickListener.onTrackClick(tracks[position])}
     }
 
     override fun getItemCount() = tracks.size

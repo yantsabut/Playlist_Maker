@@ -25,7 +25,6 @@ import com.example.playlistmaker.root.listeners.BottomNavigationListener
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.presentation.SearchingViewModel
 import com.example.playlistmaker.search.ui.models.TracksState
-import com.example.playlistmaker.settings.presentation.SettingsViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent

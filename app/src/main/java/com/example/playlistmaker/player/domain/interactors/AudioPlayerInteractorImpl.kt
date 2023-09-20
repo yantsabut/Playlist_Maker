@@ -26,9 +26,7 @@ class AudioPlayerInteractorImpl(
         return audioPlayerRepository.currentPos()
     }
 
-    override fun prepare(
-        callbackPrep: () -> Unit,
-        callbackComp: () -> Unit) {
+    override fun prepare(callbackPrep: () -> Unit, callbackComp: () -> Unit) {
         playerTrack.previewUrl?.let {
             audioPlayerRepository.prepare(
                 previewUrl = it,

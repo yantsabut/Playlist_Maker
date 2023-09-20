@@ -1,12 +1,15 @@
 package com.example.playlistmaker.player.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.KEY_FOR_PLAYER
@@ -15,7 +18,9 @@ import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.PlayerViewModel
 import com.example.playlistmaker.player.presentation.STATE_PAUSED
 import com.example.playlistmaker.player.presentation.STATE_PLAYING
+import com.example.playlistmaker.player.presentation.state_clases.FavouriteTrackState
 import com.example.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.io.Serializable
@@ -33,6 +38,7 @@ class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var country: TextView
     private lateinit var playButton: ImageView
     private lateinit var durationInTime: TextView
+    private lateinit var favouriteButton: ImageButton
 
     private lateinit var playerTrack: PlayerTrack
 
@@ -40,6 +46,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         parametersOf(playerTrack)
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_audio_player)
@@ -55,6 +62,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         country = findViewById(R.id.countryName)
         playButton = findViewById(R.id.playButton)
         durationInTime = findViewById(R.id.durationInTime)
+        favouriteButton = findViewById(R.id.favouriteButton)
 
         backArrow.setOnClickListener {
             finish()
@@ -64,6 +72,22 @@ class AudioPlayerActivity : AppCompatActivity() {
             viewModel.playbackControl()
         }
 
+        favouriteButton.setOnClickListener {
+            if (viewModel.checkValueFromIsFavourite()) {
+                favouriteButton.setImageResource(R.drawable.like_button)
+                viewModel.assignValueToIsFavourite(false)
+                lifecycleScope.launch {
+                    viewModel.deletePlayerTrackFromFavourites()
+                }
+            } else {
+                favouriteButton.setImageResource(R.drawable.like_button_marked)
+                viewModel.assignValueToIsFavourite(true)
+                lifecycleScope.launch {
+                    viewModel.addPlayerTrackToFavourites()
+                }
+            }
+        }
+
         val track = intent.getSerializable(KEY_FOR_PLAYER, Track::class.java)
 
         playerTrack = convertTrackToPlayerTrack(track)
@@ -71,6 +95,8 @@ class AudioPlayerActivity : AppCompatActivity() {
         if (playerTrack.previewUrl == null) {
             playButton.isEnabled = false
         }
+
+        viewModel.checkTrackIsFavourite()
 
         viewModel.playerTrackForRender.observe(this) { playerTrack ->
             render(playerTrack)
@@ -93,6 +119,31 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         viewModel.formattedTime.observe(this) { trackTime ->
             durationInTime.text = trackTime
+        }
+
+        viewModel.favouriteTrack.observe(this) { favouriteTrackState ->
+            renderFavouriteButton(favouriteTrackState)
+        }
+
+    }
+
+    private fun renderFavouriteButton(favouriteTrackState: FavouriteTrackState) {
+
+        when {
+
+            favouriteTrackState.isLoading -> {
+                favouriteButton.isEnabled = false
+            }
+
+            else -> {
+                favouriteButton.isEnabled = true
+
+                if (favouriteTrackState.isFavourite == true) {
+                    favouriteButton.setImageResource(R.drawable.like_button_marked)
+                } else {
+                    favouriteButton.setImageResource(R.drawable.like_button)
+                }
+            }
         }
 
     }
@@ -126,7 +177,8 @@ class AudioPlayerActivity : AppCompatActivity() {
             releaseDate = track.releaseDate,
             primaryGenreName = track.primaryGenreName,
             country = track.country,
-            previewUrl = track.previewUrl
+            previewUrl = track.previewUrl,
+            insertionTimeStamp = null
         )
     }
 

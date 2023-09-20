@@ -1,8 +1,14 @@
 package com.example.playlistmaker.di
 
 import android.media.MediaPlayer
+import com.example.playlistmaker.player.data.converters.PlayerTrackDbConverter
+import com.example.playlistmaker.favourite.data.FavouriteRepositoryImpl
 import com.example.playlistmaker.player.data.repository.AudioPlayerRepositoryImpl
+import com.example.playlistmaker.player.domain.converters.PlayerTrackDataConverter
+import com.example.playlistmaker.favourite.domain.FavouriteInteractorImpl
 import com.example.playlistmaker.player.domain.interactors.AudioPlayerInteractorImpl
+import com.example.playlistmaker.favourite.domain.FavouriteInteractor
+import com.example.playlistmaker.favourite.data.FavouriteRepository
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerRepository
 import com.example.playlistmaker.player.domain.models.PlayerTrack
@@ -24,8 +30,24 @@ import org.koin.dsl.module
         }
 
         viewModel { (playerTrack: PlayerTrack) ->
-            PlayerViewModel(playerTrack = playerTrack, audioPlayerInteractor = get { parametersOf(playerTrack) })
+            PlayerViewModel(
+            playerTrack = playerTrack,
+            audioPlayerInteractor = get { parametersOf(playerTrack) },
+            audioPlayerDatabaseInteractor = get()
+            )
+
+        }
+        factory<PlayerTrackDbConverter> { PlayerTrackDbConverter() }
+
+
+        single<FavouriteRepository> {
+            FavouriteRepositoryImpl(appDatabase = get(), playerTrackDbConverter = get())
         }
 
+        factory<PlayerTrackDataConverter> { PlayerTrackDataConverter() }
+
+        single<FavouriteInteractor> {
+            FavouriteInteractorImpl(audioPlayerDatabaseRepository = get(), playerTrackDataConverter = get())
+        }
     }
 
