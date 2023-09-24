@@ -1,6 +1,5 @@
 package com.example.playlistmaker.medialibrary.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +8,16 @@ import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.KEY_FOR_PLAYER
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentFavouritesMedialibraryBinding
 import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryFavouritesViewModel
 import com.example.playlistmaker.medialibrary.presentation.state_clases.LibraryTracksState
 import com.example.playlistmaker.medialibrary.ui.adapters.LibraryTrackAdapter
-import com.example.playlistmaker.player.ui.AudioPlayerActivity
+import com.example.playlistmaker.player.ui.PlayerFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -62,7 +62,6 @@ class MedialibraryFavouritesFragment : Fragment() {
         libraryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         libraryRecyclerView.adapter = adapter
 
-//        viewModel.fillData()
 
         viewModel.databaseTracksState.observe(viewLifecycleOwner) { libraryTrackState ->
             render(libraryTrackState)
@@ -72,6 +71,7 @@ class MedialibraryFavouritesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.fillData()
+        isClickAllowed = true
     }
 
     private fun clickDebounce(): Boolean {
@@ -91,9 +91,11 @@ class MedialibraryFavouritesFragment : Fragment() {
 
     private fun clickOnItem(libraryTrack: LibraryTrack) {
         val track = viewModel.convertLibraryTrackToTrack(libraryTrack)
-        val intent = Intent(requireContext(), AudioPlayerActivity::class.java)
-        intent.putExtra(KEY_FOR_PLAYER, track)
-        startActivity(intent)
+
+        findNavController().navigate(
+            R.id.action_medialibraryFragment_to_playerFragment,
+            PlayerFragment.createArgs(track)
+        )
     }
 
     private fun render(libraryTracksState: LibraryTracksState) {

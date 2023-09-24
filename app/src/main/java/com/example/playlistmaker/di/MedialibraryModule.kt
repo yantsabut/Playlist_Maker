@@ -1,12 +1,16 @@
 package com.example.playlistmaker.di
 
 import com.example.playlistmaker.medialibrary.data.converters.TrackDbConverter
-import com.example.playlistmaker.medialibrary.data.repository.LibraryDatabaseRepositoryImpl
+import com.example.playlistmaker.medialibrary.data.repository.FavouriteLibraryRepositoryImpl
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackToTrackConverter
 import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
 import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
+import com.example.playlistmaker.medialibrary.data.repository.PlaylistMediaDatabaseRepositoryImpl
+import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseInteractor
+import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseRepository
 import com.example.playlistmaker.medialibrary.domain.impl.LibraryInteractorImpl
+import com.example.playlistmaker.medialibrary.domain.impl.PlaylistMediaDatabaseInteractorImpl
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryFavouritesViewModel
 import com.example.playlistmaker.medialibrary.presentation.MedialibraryPlaylistsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,7 +23,7 @@ val medialibraryModule = module {
     }
 
     viewModel {
-        MedialibraryPlaylistsViewModel()
+        MedialibraryPlaylistsViewModel(playlistMediaDatabaseInteractor = get())
     }
 
     factory<TrackDbConverter> { TrackDbConverter() }
@@ -27,7 +31,7 @@ val medialibraryModule = module {
         factory<LibraryTrackToTrackConverter> { LibraryTrackToTrackConverter() }
 
         single<FavouriteLibraryRepository> {
-            LibraryDatabaseRepositoryImpl(appDatabase = get(), trackDbConverter = get())
+            FavouriteLibraryRepositoryImpl(appDatabase = get(), trackDbConverter = get())
         }
 
         factory<LibraryTrackDataConverter> { LibraryTrackDataConverter() }
@@ -35,5 +39,11 @@ val medialibraryModule = module {
         single<FavouriteLibraryInteractor> {
             LibraryInteractorImpl(libraryDatabaseRepository = get(), libraryTrackDataConverter = get())
         }
+    single<PlaylistMediaDatabaseRepository> {
+        PlaylistMediaDatabaseRepositoryImpl(playlistDatabase = get())
+    }
 
+    single<PlaylistMediaDatabaseInteractor> {
+        PlaylistMediaDatabaseInteractorImpl(playlistMediaDatabaseRepository = get())
+    }
     }

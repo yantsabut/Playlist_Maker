@@ -10,7 +10,6 @@ const val SHARED_PREFERENCES = "shared_preferences"
 const val KEY_FOR_APP_THEME = "key_for_app_theme"
 const val BASE_URL = "http://itunes.apple.com"
 const val KEY_FOR_HISTORY_LIST = "KEY_FOR_HISTORY_LIST"
-const val KEY_FOR_PLAYER = "KEY_FOR_PLAYER"
 
 class App : Application() {
 
@@ -19,8 +18,16 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-         androidContext(this@App)
-            modules(playerModule, searchModule, settingsModule, sharingModule, medialibraryModule, databaseModule)
+            androidContext(this@App)
+            modules(
+                playerModule,
+                searchModule,
+                settingsModule,
+                sharingModule,
+                medialibraryModule,
+                databaseModule,
+                playlistModule
+            )
         }
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE)
