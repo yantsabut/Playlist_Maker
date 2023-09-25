@@ -4,7 +4,7 @@ import android.media.MediaPlayer
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerRepository
 
 
-class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer): AudioPlayerRepository {
+class AudioPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer): AudioPlayerRepository {
 
     override fun play() {
         mediaPlayer.start()
@@ -16,6 +16,7 @@ class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer): AudioPlay
 
     override fun release() {
         mediaPlayer.release()
+        mediaPlayer = MediaPlayer()
     }
 
     override fun currentPos(): Int {

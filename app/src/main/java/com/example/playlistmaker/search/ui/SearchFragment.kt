@@ -142,7 +142,6 @@ class SearchFragment: Fragment() {
             inputMethodManager.hideSoftInputFromWindow(inputEditText.windowToken, 0)
         }
 
-
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 // some code

@@ -53,19 +53,13 @@ class PlayerViewModel(
     private var _playlistsFromDatabase = MutableLiveData<List<Playlist>>()
     var playlistsFromDatabase: LiveData<List<Playlist>> = _playlistsFromDatabase
 
-    init {
-        preparePlayer()
-        assignValToPlayerTrackForRender()
-    }
-
     private val _isCompleted = MutableLiveData(false)
     val isCompleted: LiveData<Boolean> = _isCompleted
 
     private val _playerState = MutableLiveData(STATE_DEFAULT)
-
     val playerState: LiveData<Int> = _playerState
-    private val _formattedTime = MutableLiveData("00:00")
 
+    private val _formattedTime = MutableLiveData("00:00")
     val formattedTime: LiveData<String> = _formattedTime
 
      fun assignValToPlayerTrackForRender() {
@@ -83,6 +77,7 @@ class PlayerViewModel(
         _playerState.postValue(STATE_PLAYING)
         startTimer()
         _isCompleted.postValue(false)
+        allowToCleanTimer = false
     }
 
     fun pause() {
