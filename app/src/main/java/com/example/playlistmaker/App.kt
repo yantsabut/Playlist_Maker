@@ -17,6 +17,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         startKoin {
             androidContext(this@App)
             modules(
@@ -26,13 +27,14 @@ class App : Application() {
                 sharingModule,
                 medialibraryModule,
                 databaseModule,
-                playlistModule
+                newPlaylistModule
             )
         }
 
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE)
 
         switchTheme(sharedPreferences.getBoolean(KEY_FOR_APP_THEME, false))
+
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {

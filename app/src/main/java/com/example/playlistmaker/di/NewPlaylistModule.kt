@@ -8,7 +8,7 @@ import com.example.playlistmaker.new_playlist.presentation.NewPlaylistViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val playlistModule = module {
+val newPlaylistModule = module {
 
     viewModel{
         NewPlaylistViewModel(playlistDatabaseInteractor = get())

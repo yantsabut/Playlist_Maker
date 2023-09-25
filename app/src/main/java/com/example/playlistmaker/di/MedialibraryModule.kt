@@ -39,6 +39,7 @@ val medialibraryModule = module {
         single<FavouriteLibraryInteractor> {
             LibraryInteractorImpl(libraryDatabaseRepository = get(), libraryTrackDataConverter = get())
         }
+
     single<PlaylistMediaDatabaseRepository> {
         PlaylistMediaDatabaseRepositoryImpl(playlistDatabase = get())
     }

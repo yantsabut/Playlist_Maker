@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface PlaylistMediaDatabaseRepository {
 
     suspend fun getPlaylistsFromDatabase(): Flow<List<Playlist>>
+
 }
