@@ -1,7 +1,7 @@
-package com.example.playlistmaker.player.domain.interactors
+package com.example.playlistmaker.player.data.interactors
 
-import com.example.playlistmaker.player.domain.interfaces.PlaylistTrackDatabaseInteractor
-import com.example.playlistmaker.player.domain.interfaces.PlaylistTrackDatabaseRepository
+import com.example.playlistmaker.player.data.interactors.PlaylistTrackDatabaseInteractor
+import com.example.playlistmaker.player.data.repository.PlaylistTrackDatabaseRepository
 import com.example.playlistmaker.search.domain.models.Track
 
 class PlaylistTrackDatabaseInteractorImpl(

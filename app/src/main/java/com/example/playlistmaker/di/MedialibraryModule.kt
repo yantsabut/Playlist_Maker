@@ -5,7 +5,7 @@ import com.example.playlistmaker.medialibrary.data.repository.FavouriteLibraryRe
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackToTrackConverter
 import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
-import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
+import com.example.playlistmaker.favourite.data.repository.FavouriteLibraryRepository
 import com.example.playlistmaker.medialibrary.data.repository.PlaylistMediaDatabaseRepositoryImpl
 import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseInteractor
 import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseRepository

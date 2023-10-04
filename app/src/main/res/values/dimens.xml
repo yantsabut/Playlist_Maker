@@ -27,6 +27,15 @@
     <dimen name="layout_margin_start_textview_toolbar">28dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="keyboard_visible_threshold">100dp</dimen>
+    <dimen name="width_of_cursor">2dp</dimen>
+    <dimen name="layout_margin_end_for_switch">4dp</dimen>
+    <dimen name="layout_height_for_framelayout">61dp</dimen>
+    <dimen name="radius_for_frame_layout">8dp</dimen>
+    <dimen name="layout_margin_top_8dp">8dp</dimen>
+    <dimen name="layout_margin_horizontal">16dp</dimen>
+    <dimen name="layout_margin_start_16dp">16dp</dimen>
+    <dimen name="layout_margin_start_32dp">32dp</dimen>
+    <dimen name="layout_margin_end_16dp">16dp</dimen>
 
     <!--SettingsActivity-->
     <dimen name="margin_start_for_textView">11dp</dimen>

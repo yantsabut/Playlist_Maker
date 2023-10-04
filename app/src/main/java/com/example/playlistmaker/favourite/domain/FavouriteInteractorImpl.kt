@@ -1,7 +1,7 @@
 package com.example.playlistmaker.favourite.domain
 
 import com.example.playlistmaker.player.domain.converters.PlayerTrackDataConverter
-import com.example.playlistmaker.favourite.data.FavouriteRepository
+import com.example.playlistmaker.favourite.data.repository.FavouriteRepository
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import kotlinx.coroutines.flow.Flow
 

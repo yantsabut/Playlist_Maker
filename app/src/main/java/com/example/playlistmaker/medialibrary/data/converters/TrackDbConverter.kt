@@ -1,6 +1,6 @@
 package com.example.playlistmaker.medialibrary.data.converters
 
-import com.example.playlistmaker.database.entity.TrackEntity
+import com.example.playlistmaker.favourite.data.entity.TrackEntity
 import com.example.playlistmaker.medialibrary.data.dto.LibraryTrackDto
 
 class TrackDbConverter {

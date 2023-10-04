@@ -2,20 +2,33 @@
     <!-- Base application theme. -->
     <style name="Theme.Playlist_Maker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/background_white</item>
-        <item name="colorPrimaryVariant">@color/background_white</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/soft_blue</item>
+        <item name="colorPrimaryVariant">@color/soft_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/background_blue</item>
-        <item name="colorSecondaryVariant">@color/background_white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/moderately_black</item>
+        <item name="thumbTint">@color/saturated_grey</item>
+        <item name="trackTint">@color/pale_grey</item>
+        <item name="android:textColorHint">@color/saturated_grey</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+
     </style>
 
+    <style name="Theme.PlaylistMakerMainActivity" parent="Theme.Playlist_Maker">
 
+        <!-- Customize your theme here. -->
+        <item name="android:background">@color/soft_blue</item>
+    </style>
 
 </resources>

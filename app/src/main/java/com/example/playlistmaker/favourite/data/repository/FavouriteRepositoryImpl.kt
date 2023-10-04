@@ -1,6 +1,7 @@
-package com.example.playlistmaker.favourite.data
+package com.example.playlistmaker.favourite.data.repository
 
 import com.example.playlistmaker.database.AppDatabase
+import com.example.playlistmaker.favourite.data.repository.FavouriteRepository
 import com.example.playlistmaker.player.data.converters.PlayerTrackDbConverter
 import com.example.playlistmaker.player.data.dto.PlayerTrackDto
 import kotlinx.coroutines.flow.Flow

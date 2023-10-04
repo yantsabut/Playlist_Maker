@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:theme="@style/Theme.Playlist_Maker"
     tools:context=".search.ui.SearchFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,60 +22,46 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/margin_l_normal"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/search_field"
-        android:orientation="horizontal"
-        style="@style/search_form">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_top_8dp"
+        android:background="@drawable/shape_for_search_frame_layout">
 
         <ImageView
-            android:id="@+id/search_button"
+            style="@style/DefaultImageViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="13dp"
-            android:src="@drawable/search"
-            app:iconPadding="11dp"
-            style="@style/search_form"
-             />
-
-        <EditText
-            android:id="@+id/inputEditText"
-            style="@style/search_form"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="9dp"
-            android:layout_weight="1"
-            android:background="@drawable/search_field"
-            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/layout_margin_start_16dp"
+            android:background="@color/pale_grey"
+            android:src="@drawable/lens_vector" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_start_32dp"
+            android:backgroundTint="@color/pale_grey"
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:inputType="text"
-            android:lines="1"
-            android:padding="8dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="32dp"
-            android:textFontWeight="400" />
+            android:textColor="@color/moderately_black"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:id="@+id/clearIcon"
-            style="@style/search_form"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_gravity="center|end"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/close"
-            android:visibility="gone"
-           />
-    </LinearLayout>
+            style="@style/DefaultImageViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/layout_margin_end_16dp"
+            android:background="@color/pale_grey"
+            android:src="@drawable/button_clear"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -192,7 +179,8 @@
                 android:text="@string/clear_history"
                 android:textAllCaps="false"
                 android:textSize="@dimen/small_medium_font_size"
-                android:layout_marginTop="@dimen/margin_l_normal"/>
+                android:layout_marginTop="@dimen/margin_l_normal"
+                />
 
         </LinearLayout>
 

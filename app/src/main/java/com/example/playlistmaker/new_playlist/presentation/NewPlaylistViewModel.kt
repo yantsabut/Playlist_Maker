@@ -1,7 +1,7 @@
 package com.example.playlistmaker.new_playlist.presentation
 
 import androidx.lifecycle.ViewModel
-import com.example.playlistmaker.new_playlist.domain.db.PlaylistDatabaseInteractor
+import com.example.playlistmaker.new_playlist.data.repository.PlaylistDatabaseInteractor
 import com.example.playlistmaker.new_playlist.domain.models.Playlist
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
