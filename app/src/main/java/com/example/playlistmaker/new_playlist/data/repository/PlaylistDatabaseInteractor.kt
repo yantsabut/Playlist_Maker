@@ -1,4 +1,4 @@
-package com.example.playlistmaker.new_playlist.domain.db
+package com.example.playlistmaker.new_playlist.data.repository
 
 import com.example.playlistmaker.new_playlist.domain.models.Playlist
 

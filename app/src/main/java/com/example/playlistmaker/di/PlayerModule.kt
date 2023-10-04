@@ -10,11 +10,11 @@ import com.example.playlistmaker.player.data.repository.AudioPlayerRepositoryImp
 import com.example.playlistmaker.player.data.repository.PlaylistTrackDatabaseRepositoryImpl
 import com.example.playlistmaker.player.domain.converters.PlayerTrackDataConverter
 import com.example.playlistmaker.player.domain.interactors.AudioPlayerInteractorImpl
-import com.example.playlistmaker.player.domain.interactors.PlaylistTrackDatabaseInteractorImpl
+import com.example.playlistmaker.player.data.interactors.PlaylistTrackDatabaseInteractorImpl
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerRepository
-import com.example.playlistmaker.player.domain.interfaces.PlaylistTrackDatabaseInteractor
-import com.example.playlistmaker.player.domain.interfaces.PlaylistTrackDatabaseRepository
+import com.example.playlistmaker.player.data.interactors.PlaylistTrackDatabaseInteractor
+import com.example.playlistmaker.player.data.repository.PlaylistTrackDatabaseRepository
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.PlayerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

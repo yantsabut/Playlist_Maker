@@ -1,7 +1,7 @@
-package com.example.playlistmaker.player.domain.interfaces
+package com.example.playlistmaker.player.data.repository
 
 import com.example.playlistmaker.search.domain.models.Track
 
-interface PlaylistTrackDatabaseInteractor {
+interface PlaylistTrackDatabaseRepository {
     suspend fun insertTrackToPlaylistTrackDatabase(track: Track)
 }

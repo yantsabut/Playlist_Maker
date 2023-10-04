@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.favourite.domain.FavouriteInteractor
 import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseInteractor
-import com.example.playlistmaker.new_playlist.domain.db.PlaylistDatabaseInteractor
+import com.example.playlistmaker.new_playlist.data.repository.PlaylistDatabaseInteractor
 import com.example.playlistmaker.new_playlist.domain.models.Playlist
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
-import com.example.playlistmaker.player.domain.interfaces.PlaylistTrackDatabaseInteractor
+import com.example.playlistmaker.player.data.interactors.PlaylistTrackDatabaseInteractor
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.state_clases.FavouriteTrackState
 import com.example.playlistmaker.player.presentation.state_clases.PlaylistTrackState
