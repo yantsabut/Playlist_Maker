@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:theme="@style/Theme.Playlist_Maker">
 
-
     <Button
-        android:id="@+id/update_button"
+        android:id="@+id/create_playlist_button"
         style="@style/SearchingActivityButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,10 +17,16 @@
         android:layout_marginTop="16dp"
         android:text="@string/new_playlist"
         android:textAllCaps="false"
-        android:textSize="@dimen/small_medium_font_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="@dimen/small_medium_font_size" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/empty_playlists_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -46,4 +53,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/playlist_progressbar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/progress_bar"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/playlist_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+</LinearLayout>

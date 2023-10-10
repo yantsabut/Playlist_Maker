@@ -5,9 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.favourite.domain.FavouriteInteractor
+import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseInteractor
+import com.example.playlistmaker.new_playlist.data.repository.PlaylistDatabaseInteractor
+import com.example.playlistmaker.new_playlist.domain.models.Playlist
 import com.example.playlistmaker.player.domain.interfaces.AudioPlayerInteractor
+import com.example.playlistmaker.player.data.interactors.PlaylistTrackDatabaseInteractor
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.example.playlistmaker.player.presentation.state_clases.FavouriteTrackState
+import com.example.playlistmaker.player.presentation.state_clases.PlaylistTrackState
+import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,9 +28,17 @@ const val STATE_PAUSED = 3
 class PlayerViewModel(
     private val playerTrack: PlayerTrack,
     private val audioPlayerInteractor: AudioPlayerInteractor,
-    private val audioPlayerDatabaseInteractor: FavouriteInteractor
+    private val audioPlayerDatabaseInteractor: FavouriteInteractor,
+    private val playlistMediaDatabaseInteractor: PlaylistMediaDatabaseInteractor,
+    private val playlistTrackDatabaseInteractor: PlaylistTrackDatabaseInteractor,
+    private val playlistDatabaseInteractor: PlaylistDatabaseInteractor
 
 ): ViewModel() {
+
+    var allowToCleanTimer = true
+
+    private val _checkIsTrackInPlaylist = MutableLiveData<PlaylistTrackState>()
+    val checkIsTrackInPlaylist: LiveData<PlaylistTrackState> = _checkIsTrackInPlaylist
 
     private var isFavourite = false
 
@@ -36,22 +50,19 @@ class PlayerViewModel(
     private val _favouriteTrack = MutableLiveData<FavouriteTrackState>()
     val favouriteTrack: LiveData<FavouriteTrackState> = _favouriteTrack
 
-    init {
-        preparePlayer()
-        assignValToPlayerTrackForRender()
-    }
+    private var _playlistsFromDatabase = MutableLiveData<List<Playlist>>()
+    var playlistsFromDatabase: LiveData<List<Playlist>> = _playlistsFromDatabase
 
     private val _isCompleted = MutableLiveData(false)
     val isCompleted: LiveData<Boolean> = _isCompleted
 
     private val _playerState = MutableLiveData(STATE_DEFAULT)
-
     val playerState: LiveData<Int> = _playerState
-    private val _formattedTime = MutableLiveData("00:00")
 
+    private val _formattedTime = MutableLiveData("00:00")
     val formattedTime: LiveData<String> = _formattedTime
 
-    private fun assignValToPlayerTrackForRender() {
+     fun assignValToPlayerTrackForRender() {
         val playerTrackTo = playerTrack.copy(
             artworkUrl = playerTrack.artworkUrl?.replaceAfterLast('/', "512x512bb.jpg"),
             releaseDate = playerTrack.releaseDate?.split("-", limit = 2)?.get(0),
@@ -66,6 +77,7 @@ class PlayerViewModel(
         _playerState.postValue(STATE_PLAYING)
         startTimer()
         _isCompleted.postValue(false)
+        allowToCleanTimer = false
     }
 
     fun pause() {
@@ -86,7 +98,7 @@ class PlayerViewModel(
         }
     }
 
-    private fun preparePlayer() {
+    fun preparePlayer() {
         audioPlayerInteractor.prepare(
             callbackPrep = {
                 _playerState.postValue(STATE_PREPARED)
@@ -158,6 +170,73 @@ class PlayerViewModel(
     }
 
     fun checkValueFromIsFavourite(): Boolean = isFavourite
+
+    fun getPlaylists() {
+
+        viewModelScope.launch {
+            playlistMediaDatabaseInteractor
+                .getPlaylistsFromDatabase()
+                .collect { listOfPlaylists ->
+                    _playlistsFromDatabase.postValue(listOfPlaylists)
+                }
+        }
+
+    }
+
+    private fun insertTrackToDatabase(track: Track) {
+
+        viewModelScope.launch {
+            playlistTrackDatabaseInteractor.insertTrackToPlaylistTrackDatabase(track)
+        }
+
+    }
+
+    private fun convertListToString(list: List<Int>): String {
+        if (list.isEmpty()) return ""
+
+        return list.joinToString(separator = ",")
+    }
+
+    private fun returnPlaylistToDatabase(playlist:Playlist) {
+        viewModelScope.launch {
+            playlistDatabaseInteractor.insertPlaylistToDatabase(playlist)
+        }
+    }
+
+    private fun convertStringToList(string: String): ArrayList<Int> {
+        if (string.isEmpty()) return ArrayList<Int>()
+
+        return ArrayList<Int>(string.split(",").map { item -> item.toInt() })
+    }
+
+    fun checkAndAddTrackToPlaylist(playlist: Playlist, track: Track?) {
+        val listIdOfPlaylistTracks: ArrayList<Int> = convertStringToList(playlist.listOfTracksId)
+
+        if (!listIdOfPlaylistTracks.contains(track?.trackId)) {
+            track?.let { listIdOfPlaylistTracks.add(it.trackId) }
+            val listString = convertListToString(listIdOfPlaylistTracks)
+            val modifiedPlaylist: Playlist = playlist.copy(listOfTracksId = listString, amountOfTracks = playlist.amountOfTracks + 1)
+            returnPlaylistToDatabase(modifiedPlaylist)
+            track?.let { insertTrackToDatabase(it) }
+
+            _checkIsTrackInPlaylist.postValue(
+                PlaylistTrackState(
+                    nameOfPlaylist = playlist.name,
+                    trackIsInPlaylist = false
+                )
+            )
+        } else {
+
+            _checkIsTrackInPlaylist.postValue(
+                PlaylistTrackState(
+                    nameOfPlaylist = playlist.name,
+                    trackIsInPlaylist = true
+                )
+            )
+
+        }
+
+    }
 
     companion object {
         private const val UPDATE_TIME_INFO_MS = 300L

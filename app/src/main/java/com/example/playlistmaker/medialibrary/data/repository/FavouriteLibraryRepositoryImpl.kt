@@ -8,7 +8,7 @@ import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class LibraryDatabaseRepositoryImpl(
+class FavouriteLibraryRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val trackDbConverter: TrackDbConverter
 ) : FavouriteLibraryRepository {

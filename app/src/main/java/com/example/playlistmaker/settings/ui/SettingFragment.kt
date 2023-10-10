@@ -22,7 +22,7 @@ private lateinit var binding: FragmentSettingsBinding
     private lateinit var agreementFrameLayout: FrameLayout
     private lateinit var themeSwitcher: SwitchMaterial
 
-    private val viewModel by viewModel<SettingsViewModel>()
+    private val viewModel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
