@@ -15,7 +15,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
         <!-- Customize your theme here. -->
-        <item name="android:background">@color/white</item>
+
         <item name="android:textColor">@color/moderately_black</item>
         <item name="thumbTint">@color/saturated_grey</item>
         <item name="trackTint">@color/pale_grey</item>
@@ -26,6 +26,8 @@
     </style>
 
     <style name="Theme.PlaylistMakerMainActivity" parent="Theme.Playlist_Maker">
+
+
 
         <!-- Customize your theme here. -->
         <item name="android:background">@color/soft_blue</item>
