@@ -33,46 +33,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class NewPlaylistFragment: Fragment() {
-
-    private var bottomNavigationListener: BottomNavigationListener? = null
-
-    private lateinit var binding: FragmentNewPlaylistBinding
-
-    private val viewModel: NewPlaylistViewModel by viewModel()
-
-    private var imageIsLoaded = false
-
-    private var uriOfImage: Uri? = null
-
-    private lateinit var backArrowImageView: ImageView
-    private lateinit var loadImageImageView: ImageView
-    private lateinit var editNameEditText: TextInputEditText
-    private lateinit var editDescriptionEditText: TextInputEditText
-    private lateinit var newPlayListButton: Button
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is BottomNavigationListener) {
-            bottomNavigationListener = context
-        } else {
-            throw IllegalArgumentException("Activity must implement BottomNavigationListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        bottomNavigationListener = null
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentNewPlaylistBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+class NewPlaylistFragment: BaseFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,40 +47,13 @@ class NewPlaylistFragment: Fragment() {
 
         })
 
-        backArrowImageView = binding.backArrowNewPlaylist
-        loadImageImageView = binding.loadImageImageview
-        editNameEditText = binding.editNameNewPlaylist
-        editDescriptionEditText = binding.editDescriptionNewPlaylist
-        newPlayListButton = binding.newPlaylistButton
+        initViews()
 
         newPlayListButton.isEnabled = false
 
-        editNameEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
-            }
+        editNameEditText.addTextChangedListener(textWatcher)
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                enableNewPlaylistButton(p0.toString())
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //
-            }
-
-        })
-
-        val pickMedia =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                if (uri != null) {
-                    loadImageImageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                    loadImageImageView.setImageURI(uri)
-                    imageIsLoaded = true
-                    uriOfImage = uri
-                } else {
-                    Log.d("PhotoPicker", "No media selected")
-                }
-            }
+        val pickMedia = pickMediaCommon
 
 
         backArrowImageView.setOnClickListener {
@@ -141,7 +75,8 @@ class NewPlaylistFragment: Fragment() {
                 description = editDescriptionEditText.text.toString(),
                 filePath = filepath,
                 listOfTracksId = "",
-                amountOfTracks = 0
+                amountOfTracks = 0,
+                insertTimeStamp = System.currentTimeMillis()
             )
 
             viewLifecycleOwner.lifecycleScope.launch {
@@ -159,24 +94,6 @@ class NewPlaylistFragment: Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        hideBottomNavigation(true)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        hideBottomNavigation(false)
-    }
-
-    private fun hideBottomNavigation(isHide: Boolean) {
-        bottomNavigationListener?.toggleBottomNavigationViewVisibility(!isHide)
-    }
-
-    private fun enableNewPlaylistButton(text: String?) {
-        newPlayListButton.isEnabled = !text.isNullOrEmpty()
-    }
-
     private fun checkForDialogOutput() {
         if (imageIsLoaded ||
             editNameEditText.text.toString().isNotEmpty() ||
@@ -189,38 +106,16 @@ class NewPlaylistFragment: Fragment() {
     }
 
     private fun showDialog() {
-        MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogTheme)
             .setTitle(getString(R.string.complete_playlist))
             .setMessage(getString(R.string.data_lost))
-            .setNeutralButton(getString(R.string.cancel)) { dialog, which ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, which ->
 
             }
             .setPositiveButton(getString(R.string.complete)) { dialog, which ->
                 findNavController().navigateUp()
             }
             .show()
-    }
-
-    private fun saveImageToPrivateStorage(uri: Uri, nameOfFile: String) {
-        //создаём экземпляр класса File, который указывает на нужный каталог
-        val filePath = File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
-        //создаем каталог, если он не создан
-        if (!filePath.exists()){
-            filePath.mkdirs()
-        }
-        //создаём экземпляр класса File, который указывает на файл внутри каталога
-        val file = File(filePath, nameOfFile)
-
-        // создаём входящий поток байтов из выбранной картинки
-        val inputStream = requireActivity().contentResolver.openInputStream(uri)
-        // создаём исходящий поток байтов в созданный выше файл
-        val outputStream = FileOutputStream(file)
-        // записываем картинку с помощью BitmapFactory
-        BitmapFactory
-            .decodeStream(inputStream)
-            .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
-
-        Log.d("d", "Сохранено в по адресу ${file.absolutePath}")
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.playlistmaker.database.AppDatabase
 import com.example.playlistmaker.medialibrary.domain.db.PlaylistMediaDatabaseRepository
 import com.example.playlistmaker.new_playlist.domain.models.Playlist
 import com.example.playlistmaker.new_playlist.domain.models.mapToPlaylist
+import com.example.playlistmaker.new_playlist.domain.models.mapToPlaylistEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -14,5 +15,9 @@ class PlaylistMediaDatabaseRepositoryImpl (private val playlistDatabase: AppData
         val playlistEntityList = playlistDatabase.playlistDao().getPlaylists()
         emit(playlistEntityList.map { playlistEntity -> playlistEntity.mapToPlaylist() })
 
+    }
+
+    override suspend fun deletePlaylist(playlist: Playlist) {
+        playlistDatabase.playlistDao().deletePlaylist(playlist.mapToPlaylistEntity())
     }
 }

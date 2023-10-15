@@ -7,4 +7,6 @@ interface PlaylistMediaDatabaseInteractor {
 
     suspend fun getPlaylistsFromDatabase(): Flow<List<Playlist>>
 
+    suspend fun deletePlaylist(playlist: Playlist)
+
 }

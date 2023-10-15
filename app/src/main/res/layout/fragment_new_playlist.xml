@@ -43,6 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            style="@style/CardViewBackgroundStyle"
             android:id="@+id/load_image_imageview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

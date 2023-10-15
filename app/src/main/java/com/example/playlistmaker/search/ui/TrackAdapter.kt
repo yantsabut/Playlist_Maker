@@ -12,8 +12,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TrackAdapter(val clickListener: TrackClickListener) :
-    RecyclerView.Adapter<TrackAdapter.TrackHolder>() {
+class TrackAdapter(
+    private val onLongClickListener: ((Track) -> Boolean) = {true},
+    private val getArtWorkUrl60: Boolean = false,
+    private val clickListener: TrackClickListener
+
+): RecyclerView.Adapter<TrackAdapter.TrackHolder>() {
 
     var tracks = ArrayList<Track>()
 
@@ -21,7 +25,7 @@ class TrackAdapter(val clickListener: TrackClickListener) :
         fun onTrackClick(track: Track)
     }
 
-    class TrackHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    class TrackHolder(parent: ViewGroup, private val getArtWorkUrl60: Boolean): RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.track_view, parent, false)
     ) {
         private var artwork = itemView.findViewById<ImageView>(R.id.artwork)
@@ -34,19 +38,21 @@ class TrackAdapter(val clickListener: TrackClickListener) :
             val formattedTime =
                 SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime?.toLong())
 
-            Glide.with(itemView).load(track.artworkUrl).placeholder(R.drawable.placeholder)
-                .into(artwork)
+            val artworkUrl = if (getArtWorkUrl60) track.artworkUrl60 else track.artworkUrl
+
+            Glide.with(itemView).load(artworkUrl).placeholder(R.drawable.placeholder).into(artwork)
             artistName.text = track.artistName
             trackName.text = track.trackName
             trackTime.text = formattedTime
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TrackHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TrackHolder(parent, getArtWorkUrl60)
 
     override fun onBindViewHolder(holder: TrackHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { clickListener.onTrackClick(tracks[position]) }
+        holder.itemView.setOnClickListener {clickListener.onTrackClick(tracks[position])}
+        holder.itemView.setOnLongClickListener { onLongClickListener.invoke(tracks[position]) }
     }
 
     override fun getItemCount() = tracks.size

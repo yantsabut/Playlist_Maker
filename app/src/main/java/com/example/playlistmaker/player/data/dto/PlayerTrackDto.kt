@@ -6,6 +6,7 @@ data class PlayerTrackDto (
     val artistName: String?,
     val trackTime: String?,
     val artworkUrl: String?,
+    val artworkUrl60: String?,
     val collectionName: String?,
     val releaseDate: String?,
     val primaryGenreName: String?,
