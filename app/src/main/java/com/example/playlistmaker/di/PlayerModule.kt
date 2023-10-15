@@ -1,8 +1,8 @@
 package com.example.playlistmaker.di
 
 import android.media.MediaPlayer
-import com.example.playlistmaker.favourite.data.FavouriteRepository
-import com.example.playlistmaker.favourite.data.FavouriteRepositoryImpl
+import com.example.playlistmaker.favourite.data.repository.FavouriteRepository
+import com.example.playlistmaker.favourite.data.repository.FavouriteRepositoryImpl
 import com.example.playlistmaker.favourite.domain.FavouriteInteractor
 import com.example.playlistmaker.favourite.domain.FavouriteInteractorImpl
 import com.example.playlistmaker.player.data.converters.PlayerTrackDbConverter

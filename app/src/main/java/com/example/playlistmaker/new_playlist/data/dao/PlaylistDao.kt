@@ -1,10 +1,10 @@
-package com.example.playlistmaker.database.dao
+package com.example.playlistmaker.new_playlist.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.playlistmaker.database.entity.PlaylistEntity
+import com.example.playlistmaker.new_playlist.data.entity.PlaylistEntity
 
 @Dao
 interface PlaylistDao {

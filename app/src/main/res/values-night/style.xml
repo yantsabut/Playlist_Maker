@@ -20,10 +20,19 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
     <style name="SearchingActivityButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="backgroundTint">?attr/colorOnSecondary</item>
+        <item name="backgroundTint">@color/white</item>
         <item name="cornerRadius">54dp</item>
-        <item name="android:textColor">?attr/colorSecondaryVariant</item>
+        <item name="android:textColor">@color/moderately_black</item>
     </style>
+
+    <style name="SearchingActivityNotFoundMode">
+        <item name="android:src">@drawable/not_found_dark_mode</item>
+    </style>
+
+    <style name="SearchingActivityBadConnectionMode">
+        <item name="android:src">@drawable/bad_connection_dark_mode</item>
+    </style>
+
     <style name="TextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -35,6 +44,10 @@
         <item name="android:textFontWeight">400</item>
         <item name="android:track">@drawable/track</item>
         <item name="android:thumb">@drawable/knob</item>
+    </style>
+
+    <style name="DefaultImageViewStyle">
+        <item name="tint">@color/moderately_black</item>
     </style>
 
     <style name="search_form">
@@ -125,7 +138,7 @@
         <item name="tint">@color/white</item>
     </style>
 
-    <style name="MedialibraryTableoutStyle">
+    <style name="MedialibraryTableoutStyle" parent="Widget.Design.TabLayout">
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
         <item name="android:background">@color/moderately_black</item>
@@ -136,7 +149,14 @@
     <style name="MedialibraryToolbarStyle">
         <item name="android:background">@color/moderately_black</item>
     </style>
+
+    <style name="BottomViewStyle">
+        <item name="android:background">@color/pale_grey</item>
+
+    </style>
+
     <style name="BottomMenuStyle">
+        <item name="android:background">@color/moderately_black</item>
         <item name="itemIconTint">@drawable/bottom_menu_icon_color_night_mode</item>
         <item name="itemTextColor">@drawable/bottom_menu_icon_color_night_mode</item>
     </style>
@@ -155,8 +175,9 @@
     </style>
 
     <style name="TextInputLayoutStyleNewPlaylist" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/moderately_black</item>
-        <item name="android:textColor">@color/moderately_black</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+
     </style>
 
     <style name="PlaylistBottomSheetCommonTextViewStyle">
@@ -164,4 +185,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="ImageViewTrackItemStyle">
+        <item name="android:background">@color/moderately_black</item>
+    </style>
 </resources>

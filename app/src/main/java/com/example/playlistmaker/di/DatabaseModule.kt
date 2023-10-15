@@ -13,16 +13,4 @@ val databaseModule = module {
             .build()
     }
 
-    single<AppDatabase> {
-       Room.databaseBuilder(androidContext(), AppDatabase::class.java, "playlist_database.db")
-           .fallbackToDestructiveMigration()
-           .build()
-    }
-
-    single<AppDatabase> {
-           Room.databaseBuilder(androidContext(), AppDatabase::class.java, "playlist_track_databases.db")
-               .fallbackToDestructiveMigration()
-               .build()
-    }
-
 }

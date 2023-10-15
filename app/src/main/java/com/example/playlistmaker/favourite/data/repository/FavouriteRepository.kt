@@ -1,4 +1,4 @@
-package com.example.playlistmaker.favourite.data
+package com.example.playlistmaker.favourite.data.repository
 
 import com.example.playlistmaker.player.data.dto.PlayerTrackDto
 import kotlinx.coroutines.flow.Flow

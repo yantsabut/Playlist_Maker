@@ -1,6 +1,6 @@
 package com.example.playlistmaker.new_playlist.domain.models
 
-import com.example.playlistmaker.database.entity.PlaylistEntity
+import com.example.playlistmaker.new_playlist.data.entity.PlaylistEntity
 
 data class Playlist(
     val id: Long = 0,

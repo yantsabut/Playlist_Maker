@@ -1,6 +1,6 @@
 package com.example.playlistmaker.search.domain.models
 
-import com.example.playlistmaker.database.entity.PlaylistTrackEntity
+import com.example.playlistmaker.new_playlist.data.entity.PlaylistTrackEntity
 import com.example.playlistmaker.player.domain.models.PlayerTrack
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

@@ -3,7 +3,7 @@ package com.example.playlistmaker.medialibrary.domain.impl
 import com.example.playlistmaker.medialibrary.data.dto.LibraryTrackDto
 import com.example.playlistmaker.medialibrary.domain.converters.LibraryTrackDataConverter
 import com.example.playlistmaker.favourite.domain.FavouriteLibraryInteractor
-import com.example.playlistmaker.favourite.data.FavouriteLibraryRepository
+import com.example.playlistmaker.favourite.data.repository.FavouriteLibraryRepository
 import com.example.playlistmaker.medialibrary.domain.models.LibraryTrack
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
