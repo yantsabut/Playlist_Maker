@@ -53,9 +53,7 @@ class MedialibraryPlaylistsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = PlaylistAdapter(requireContext()) { playlist ->
-            if (clickDebounce()) {
                 clickOnItem(playlist)
-            }
         }
 
         createPlaylistButton = binding.createPlaylistButton

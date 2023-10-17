@@ -17,13 +17,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PlaylistInfoViewModel (
-
     private val currentPlaylistTracksDatabaseInteractor: CurrentPlaylistTracksDatabaseInteractor,
     private val playlistDatabaseInteractor: PlaylistDatabaseInteractor,
     private val playlistTrackDatabaseInteractor: PlaylistTrackDatabaseInteractor,
     private val playlistMediaDatabaseInteractor: PlaylistMediaDatabaseInteractor
-
-
 ) : ViewModel() {
 
     var updatedPlaylist: Playlist? = null
