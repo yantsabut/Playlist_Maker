@@ -19,6 +19,7 @@ import com.example.playlistmaker.medialibrary.presentation.MedialibraryPlaylists
 import com.example.playlistmaker.medialibrary.presentation.state_clases.PlaylistState
 import com.example.playlistmaker.medialibrary.ui.adapters.PlaylistAdapter
 import com.example.playlistmaker.new_playlist.domain.models.Playlist
+import com.example.playlistmaker.playlist_info.ui.PlaylistInfoFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,9 +53,7 @@ class MedialibraryPlaylistsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = PlaylistAdapter(requireContext()) { playlist ->
-            if (clickDebounce()) {
                 clickOnItem(playlist)
-            }
         }
 
         createPlaylistButton = binding.createPlaylistButton
@@ -80,7 +79,10 @@ class MedialibraryPlaylistsFragment : Fragment() {
     }
 
     private fun clickOnItem(playlist: Playlist) {
-        Toast.makeText(requireContext(), "You clicked on playlist with id ${playlist.id}", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            R.id.action_medialibraryFragment_to_playlistInfoFragment,
+            PlaylistInfoFragment.createArgs(playlist)
+        )
     }
 
     private fun clickDebounce(): Boolean {

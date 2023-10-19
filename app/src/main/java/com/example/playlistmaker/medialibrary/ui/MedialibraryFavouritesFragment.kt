@@ -18,6 +18,7 @@ import com.example.playlistmaker.medialibrary.presentation.MedialibraryFavourite
 import com.example.playlistmaker.medialibrary.presentation.state_clases.LibraryTracksState
 import com.example.playlistmaker.medialibrary.ui.adapters.LibraryTrackAdapter
 import com.example.playlistmaker.player.ui.PlayerFragment
+import com.example.playlistmaker.playlist_info.ui.PlaylistInfoFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,9 +51,7 @@ class MedialibraryFavouritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = LibraryTrackAdapter { libraryTrack ->
-            if (clickDebounce()) {
                 clickOnItem(libraryTrack)
-            }
         }
 
         emptyLibraryPlaceholder = binding.emptyLibraryPlaceholder
@@ -96,6 +95,7 @@ class MedialibraryFavouritesFragment : Fragment() {
             R.id.action_medialibraryFragment_to_playerFragment,
             PlayerFragment.createArgs(track)
         )
+
     }
 
     private fun render(libraryTracksState: LibraryTracksState) {

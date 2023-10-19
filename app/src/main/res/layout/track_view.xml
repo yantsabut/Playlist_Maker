@@ -34,6 +34,7 @@
         android:paddingHorizontal="@dimen/padding_horizontal_8dp">
 
         <TextView
+            style="@style/PlaylistBottomSheetModTextViewStyle"
             android:id="@+id/trackName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

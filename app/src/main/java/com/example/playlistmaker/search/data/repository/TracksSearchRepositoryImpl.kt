@@ -29,6 +29,7 @@ class TracksSearchSearchRepositoryImpl(private val networkClient: NetworkClient)
                         artistName = it.artistName,
                         trackTime = it.trackTime,
                         artworkUrl = it.artworkUrl,
+                        artworkUrl60 = it.artworkUrl60,
                         collectionName = it.collectionName,
                         releaseDate = it.releaseDate,
                         primaryGenreName = it.primaryGenreName,

@@ -12,6 +12,7 @@ class LibraryTrackToTrackConverter {
             artistName = libraryTrack.artistName,
             trackTime = libraryTrack.trackTime,
             artworkUrl = libraryTrack.artworkUrl,
+            artworkUrl60 = libraryTrack.artworkUrl60,
             collectionName = libraryTrack.collectionName,
             releaseDate = libraryTrack.releaseDate,
             primaryGenreName = libraryTrack.primaryGenreName,

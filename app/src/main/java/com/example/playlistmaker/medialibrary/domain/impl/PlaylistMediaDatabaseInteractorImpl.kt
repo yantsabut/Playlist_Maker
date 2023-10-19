@@ -11,4 +11,8 @@ class PlaylistMediaDatabaseInteractorImpl (
     override suspend fun getPlaylistsFromDatabase(): Flow<List<Playlist>> {
         return playlistMediaDatabaseRepository.getPlaylistsFromDatabase()
     }
+
+    override suspend fun deletePlaylist(playlist: Playlist) {
+        playlistMediaDatabaseRepository.deletePlaylist(playlist)
+    }
 }

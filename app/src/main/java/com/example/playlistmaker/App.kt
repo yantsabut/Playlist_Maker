@@ -27,7 +27,8 @@ class App : Application() {
                 sharingModule,
                 medialibraryModule,
                 databaseModule,
-                newPlaylistModule
+                newPlaylistModule,
+                playlistInfoModule
             )
         }
 
