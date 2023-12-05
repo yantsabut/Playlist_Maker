@@ -17,8 +17,8 @@
 
 XML, Retrofit, RecyclerView, MediaPlayer, SharedPreferences, SQLite, Room, Clean Architecture, MVVM, Coroutines, Koin, Permissions
 
-Общие требования для разработки:
+## Общие требования для разработки:
 
-## Приложение поддерживает устройства, начиная с Android 7 (minSdkVersion = 24)
+ Приложение поддерживает устройства, начиная с Android 7 (minSdkVersion = 24)
 
 
